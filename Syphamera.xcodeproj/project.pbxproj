@@ -7,15 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E225490215F58AF700160073 /* libturbojpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E22548FB15F58AF700160073 /* libturbojpeg.dylib */; };
+		E225490515F58B2700160073 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E22548FB15F58AF700160073 /* libturbojpeg.dylib */; };
+		E225490E15F6289A00160073 /* SyPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E225490D15F6289A00160073 /* SyPImage.m */; };
+		E225491215F62C6800160073 /* SyPImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E225491115F62C6800160073 /* SyPImageBuffer.m */; };
+		E225491515F62DD200160073 /* SyPCanonEVFImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E225491415F62DD200160073 /* SyPCanonEVFImageBuffer.m */; };
+		E225493015F751BF00160073 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; };
+		E225494015F7531700160073 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E225493F15F7531700160073 /* OpenGL.framework */; };
+		E225494115F7569900160073 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; };
 		E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */; };
 		E2B4025715F4F9BE00A2D1C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2B4025515F4F9BE00A2D1C9 /* InfoPlist.strings */; };
 		E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025815F4F9BE00A2D1C9 /* main.m */; };
 		E2B4025D15F4F9BE00A2D1C9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E2B4025B15F4F9BE00A2D1C9 /* Credits.rtf */; };
 		E2B4026015F4F9BE00A2D1C9 /* SyPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */; };
 		E2B4026315F4F9BE00A2D1C9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */; };
+		E2B4027B15F4FE0400A2D1C9 /* DPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4027415F4FE0400A2D1C9 /* DPP.framework */; };
+		E2B4027C15F4FE0400A2D1C9 /* EDSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; };
+		E2B4028715F502E100A2D1C9 /* DPP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027415F4FE0400A2D1C9 /* DPP.framework */; };
+		E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; };
+		E2B4029915F50E0D00A2D1C9 /* SyPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */; };
+		E2B4029C15F532F200A2D1C9 /* SyPCanonDSLR.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E2B4028615F502D800A2D1C9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E225494115F7569900160073 /* Syphon.framework in CopyFiles */,
+				E2B4028715F502E100A2D1C9 /* DPP.framework in CopyFiles */,
+				E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */,
+				E225490515F58B2700160073 /* libturbojpeg.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		E22548F015F58AF700160073 /* jconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jconfig.h; sourceTree = "<group>"; };
+		E22548F115F58AF700160073 /* jerror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jerror.h; sourceTree = "<group>"; };
+		E22548F215F58AF700160073 /* jmorecfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jmorecfg.h; sourceTree = "<group>"; };
+		E22548F315F58AF700160073 /* jpeglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jpeglib.h; sourceTree = "<group>"; };
+		E22548F415F58AF700160073 /* turbojpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = turbojpeg.h; sourceTree = "<group>"; };
+		E22548F615F58AF700160073 /* libjpeg.62.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libjpeg.62.dylib; sourceTree = "<group>"; };
+		E22548F715F58AF700160073 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
+		E22548F815F58AF700160073 /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libjpeg.dylib; sourceTree = "<group>"; };
+		E22548F915F58AF700160073 /* libjpeg.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libjpeg.la; sourceTree = "<group>"; };
+		E22548FA15F58AF700160073 /* libturbojpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libturbojpeg.a; sourceTree = "<group>"; };
+		E22548FB15F58AF700160073 /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libturbojpeg.dylib; sourceTree = "<group>"; };
+		E22548FC15F58AF700160073 /* libturbojpeg.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libturbojpeg.la; sourceTree = "<group>"; };
+		E225490C15F6289A00160073 /* SyPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPImage.h; sourceTree = "<group>"; };
+		E225490D15F6289A00160073 /* SyPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPImage.m; sourceTree = "<group>"; };
+		E225491015F62C6800160073 /* SyPImageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPImageBuffer.h; sourceTree = "<group>"; };
+		E225491115F62C6800160073 /* SyPImageBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPImageBuffer.m; sourceTree = "<group>"; };
+		E225491315F62DD200160073 /* SyPCanonEVFImageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPCanonEVFImageBuffer.h; sourceTree = "<group>"; };
+		E225491415F62DD200160073 /* SyPCanonEVFImageBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPCanonEVFImageBuffer.m; sourceTree = "<group>"; };
+		E225491E15F642D100160073 /* SyPImageFormats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPImageFormats.h; sourceTree = "<group>"; };
+		E225492F15F751BF00160073 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
+		E225493F15F7531700160073 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		E2B4024815F4F9BE00A2D1C9 /* Syphamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Syphamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E2B4024F15F4F9BE00A2D1C9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -29,6 +80,16 @@
 		E2B4025E15F4F9BE00A2D1C9 /* SyPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPAppDelegate.h; sourceTree = "<group>"; };
 		E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyPAppDelegate.m; sourceTree = "<group>"; };
 		E2B4026215F4F9BE00A2D1C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E2B4027215F4FE0400A2D1C9 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		E2B4027415F4FE0400A2D1C9 /* DPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DPP.framework; sourceTree = "<group>"; };
+		E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EDSDK.framework; sourceTree = "<group>"; };
+		E2B4027715F4FE0400A2D1C9 /* EDSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDK.h; sourceTree = "<group>"; };
+		E2B4027815F4FE0400A2D1C9 /* EDSDKErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDKErrors.h; sourceTree = "<group>"; };
+		E2B4027915F4FE0400A2D1C9 /* EDSDKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDKTypes.h; sourceTree = "<group>"; };
+		E2B4029715F50E0D00A2D1C9 /* SyPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPCamera.h; sourceTree = "<group>"; };
+		E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPCamera.m; sourceTree = "<group>"; };
+		E2B4029A15F532F200A2D1C9 /* SyPCanonDSLR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPCanonDSLR.h; sourceTree = "<group>"; };
+		E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPCanonDSLR.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,16 +97,78 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E225494015F7531700160073 /* OpenGL.framework in Frameworks */,
 				E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */,
+				E2B4027B15F4FE0400A2D1C9 /* DPP.framework in Frameworks */,
+				E2B4027C15F4FE0400A2D1C9 /* EDSDK.framework in Frameworks */,
+				E225490215F58AF700160073 /* libturbojpeg.dylib in Frameworks */,
+				E225493015F751BF00160073 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E22548EE15F58AF700160073 /* libjpeg-turbo */ = {
+			isa = PBXGroup;
+			children = (
+				E22548EF15F58AF700160073 /* include */,
+				E22548F515F58AF700160073 /* lib */,
+			);
+			path = "libjpeg-turbo";
+			sourceTree = "<group>";
+		};
+		E22548EF15F58AF700160073 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				E22548F015F58AF700160073 /* jconfig.h */,
+				E22548F115F58AF700160073 /* jerror.h */,
+				E22548F215F58AF700160073 /* jmorecfg.h */,
+				E22548F315F58AF700160073 /* jpeglib.h */,
+				E22548F415F58AF700160073 /* turbojpeg.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		E22548F515F58AF700160073 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				E22548F615F58AF700160073 /* libjpeg.62.dylib */,
+				E22548F715F58AF700160073 /* libjpeg.a */,
+				E22548F815F58AF700160073 /* libjpeg.dylib */,
+				E22548F915F58AF700160073 /* libjpeg.la */,
+				E22548FA15F58AF700160073 /* libturbojpeg.a */,
+				E22548FB15F58AF700160073 /* libturbojpeg.dylib */,
+				E22548FC15F58AF700160073 /* libturbojpeg.la */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		E225490815F58CFB00160073 /* Syphon */ = {
+			isa = PBXGroup;
+			children = (
+				E225492F15F751BF00160073 /* Syphon.framework */,
+			);
+			path = Syphon;
+			sourceTree = "<group>";
+		};
+		E225490F15F628A600160073 /* Canon */ = {
+			isa = PBXGroup;
+			children = (
+				E2B4029A15F532F200A2D1C9 /* SyPCanonDSLR.h */,
+				E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */,
+				E225491315F62DD200160073 /* SyPCanonEVFImageBuffer.h */,
+				E225491415F62DD200160073 /* SyPCanonEVFImageBuffer.m */,
+			);
+			name = Canon;
+			sourceTree = "<group>";
+		};
 		E2B4023D15F4F9BE00A2D1C9 = {
 			isa = PBXGroup;
 			children = (
+				E225490815F58CFB00160073 /* Syphon */,
+				E22548EE15F58AF700160073 /* libjpeg-turbo */,
+				E2B4027115F4FE0400A2D1C9 /* EDSDK */,
 				E2B4025215F4F9BE00A2D1C9 /* Syphamera */,
 				E2B4024B15F4F9BE00A2D1C9 /* Frameworks */,
 				E2B4024915F4F9BE00A2D1C9 /* Products */,
@@ -64,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */,
+				E225493F15F7531700160073 /* OpenGL.framework */,
 				E2B4024E15F4F9BE00A2D1C9 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -84,6 +208,14 @@
 			children = (
 				E2B4025E15F4F9BE00A2D1C9 /* SyPAppDelegate.h */,
 				E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */,
+				E2B4029715F50E0D00A2D1C9 /* SyPCamera.h */,
+				E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */,
+				E225491E15F642D100160073 /* SyPImageFormats.h */,
+				E225490C15F6289A00160073 /* SyPImage.h */,
+				E225490D15F6289A00160073 /* SyPImage.m */,
+				E225491015F62C6800160073 /* SyPImageBuffer.h */,
+				E225491115F62C6800160073 /* SyPImageBuffer.m */,
+				E225490F15F628A600160073 /* Canon */,
 				E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */,
 				E2B4025315F4F9BE00A2D1C9 /* Supporting Files */,
 			);
@@ -102,6 +234,35 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E2B4027115F4FE0400A2D1C9 /* EDSDK */ = {
+			isa = PBXGroup;
+			children = (
+				E2B4027215F4FE0400A2D1C9 /* .gitignore */,
+				E2B4027315F4FE0400A2D1C9 /* Framework */,
+				E2B4027615F4FE0400A2D1C9 /* Header */,
+			);
+			path = EDSDK;
+			sourceTree = "<group>";
+		};
+		E2B4027315F4FE0400A2D1C9 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				E2B4027415F4FE0400A2D1C9 /* DPP.framework */,
+				E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		E2B4027615F4FE0400A2D1C9 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				E2B4027715F4FE0400A2D1C9 /* EDSDK.h */,
+				E2B4027815F4FE0400A2D1C9 /* EDSDKErrors.h */,
+				E2B4027915F4FE0400A2D1C9 /* EDSDKTypes.h */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,6 +273,7 @@
 				E2B4024415F4F9BE00A2D1C9 /* Sources */,
 				E2B4024515F4F9BE00A2D1C9 /* Frameworks */,
 				E2B4024615F4F9BE00A2D1C9 /* Resources */,
+				E2B4028615F502D800A2D1C9 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -169,6 +331,11 @@
 			files = (
 				E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */,
 				E2B4026015F4F9BE00A2D1C9 /* SyPAppDelegate.m in Sources */,
+				E2B4029915F50E0D00A2D1C9 /* SyPCamera.m in Sources */,
+				E2B4029C15F532F200A2D1C9 /* SyPCanonDSLR.m in Sources */,
+				E225490E15F6289A00160073 /* SyPImage.m in Sources */,
+				E225491215F62C6800160073 /* SyPImageBuffer.m in Sources */,
+				E225491515F62DD200160073 /* SyPCanonEVFImageBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,9 +373,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -224,7 +391,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -234,9 +401,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -246,7 +413,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -255,9 +422,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/EDSDK/Framework\"",
+					"\"$(SRCROOT)/Syphon\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Syphamera/Syphamera-Prefix.pch";
 				INFOPLIST_FILE = "Syphamera/Syphamera-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libjpeg-turbo/lib\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -267,9 +444,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/EDSDK/Framework\"",
+					"\"$(SRCROOT)/Syphon\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Syphamera/Syphamera-Prefix.pch";
 				INFOPLIST_FILE = "Syphamera/Syphamera-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libjpeg-turbo/lib\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -294,6 +481,7 @@
 				E2B4026815F4F9BE00A2D1C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
