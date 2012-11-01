@@ -13,8 +13,9 @@
 {
 @private
     EdsCameraRef _camera;
+    EdsDeviceInfo _info;
     BOOL _hasSession;
+    NSString *_identifier;
     dispatch_source_t _timer;
 }
-- (id)initWithCanonCameraRef:(EdsCameraRef)ref;
 @end

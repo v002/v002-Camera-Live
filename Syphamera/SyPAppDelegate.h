@@ -16,7 +16,10 @@
 @interface SyPAppDelegate : NSObject <NSApplicationDelegate>
 {
     NSWindow *_window;
+    NSArrayController *_camerasArrayController;
     NSMutableArray *_cameras;
+    NSArray *_selectedCameras;
+    dispatch_queue_t _queue;
     SyPCamera *_active;
     tjhandle _decompressor;
     void *_buffer;
@@ -27,4 +30,6 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (readonly) NSArray *cameras;
 @property (readwrite, retain) SyPCamera *activeCamera;
+@property (readwrite, retain) NSArray *selectedCameras;
+@property (assign) IBOutlet NSArrayController *camerasArrayController;
 @end

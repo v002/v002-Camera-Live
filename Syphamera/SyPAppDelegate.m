@@ -7,58 +7,39 @@
 //
 
 #import "SyPAppDelegate.h"
-#import "EDSDK.h"
-#import "SyPCanonDSLR.h"
+#import "SyPCamera.h"
 #import "SyPImageBuffer.h"
 #import <OpenGL/CGLMacro.h>
 
+#define kActiveCameraIDDefaultsKey @"ActiveCameraID"
+
 @interface SyPAppDelegate (Private)
 - (void)addCamera:(SyPCamera *)camera;
+- (void)removeCamera:(SyPCamera *)camera;
 @end
 
-EdsError SyPHandleCameraAdded(EdsVoid *inContext )
-{
-    EdsCameraListRef list;
-    EdsError result = EdsGetCameraList(&list);
-    if (result == EDS_ERR_OK)
-    {
-        EdsUInt32 count = 0;
-        result = EdsGetChildCount(list, &count);
-        if (result == EDS_ERR_OK)
-        {
-            for (int i = 0; i < count; i++) {
-                EdsCameraRef camera;
-                result = EdsGetChildAtIndex(list, i, &camera);
-                if (result == EDS_ERR_OK)
-                {
-                    SyPCanonDSLR *this = [[SyPCanonDSLR alloc] initWithCanonCameraRef:camera];
-                    [(SyPAppDelegate *)inContext addCamera:this];
-                    if (((SyPAppDelegate *)inContext).activeCamera == nil)
-                    {
-                        ((SyPAppDelegate *)inContext).activeCamera = this;
-                    }
-                    NSLog(@"added: %@", this.name);
-                    [this release];
-                    EdsRelease(camera);
-                    
-                }
-            }
-        }
-        EdsRelease(list);
-    }
-    return EDS_ERR_OK;
-}
 
 @implementation SyPAppDelegate
 
 - (void)addCamera:(SyPCamera *)camera
 {
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [_cameras addObject:camera];
-    }];
+    [self.camerasArrayController addObject:camera];
+    if (self.activeCamera == nil)
+    {
+        NSString *previousID = [[NSUserDefaults standardUserDefaults] objectForKey:kActiveCameraIDDefaultsKey];
+        if ([previousID isEqualToString:camera.identifier])
+        {
+            [self.camerasArrayController setSelectedObjects:[NSArray arrayWithObject:camera]];
+        }
+    }
 }
 
-@synthesize window = _window;
+- (void)removeCamera:(SyPCamera *)camera
+{
+    [self.camerasArrayController removeObject:camera];
+}
+
+@synthesize window = _window, camerasArrayController = _camerasArrayController;
 
 - (NSArray *)cameras { return _cameras; }
 
@@ -66,16 +47,47 @@ EdsError SyPHandleCameraAdded(EdsVoid *inContext )
 {
     _cameras = [[NSMutableArray alloc] initWithCapacity:4];
     _decompressor = tjInitDecompress();
-    EdsInitializeSDK();
-    EdsSetCameraAddedHandler(SyPHandleCameraAdded, self);
-    SyPHandleCameraAdded(self);
+    [self bind:@"selectedCameras" toObject:self.camerasArrayController withKeyPath:@"selectedObjects" options:nil];
+    [[NSNotificationCenter defaultCenter] addObserverForName:SyPCameraAddedNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self addCamera:[note object]];
+                                                  }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:SyPCameraRemovedNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self removeCamera:[note object]];
+                                                  }];
+    for (SyPCamera *camera in [SyPCamera cameras]) {
+        [self addCamera:camera];
+    }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-    [self setActiveCamera:nil];
-    [_cameras removeAllObjects];
-    EdsTerminateSDK();
+    [self.camerasArrayController removeObjects:[self.camerasArrayController arrangedObjects]];
+}
+
+- (NSArray *)selectedCameras
+{
+    return _selectedCameras;
+}
+
+- (void)setSelectedCameras:(NSArray *)selectedCameras
+{
+    [selectedCameras retain];
+    [_selectedCameras release];
+    _selectedCameras = selectedCameras;
+    SyPCamera *selected = [selectedCameras lastObject];
+    if ([[self.camerasArrayController arrangedObjects] count])
+    {
+        // we only want to record an identifier (or lack thereof) if the selection (or lack thereof) was from at least
+        // one existant camera
+        [[NSUserDefaults standardUserDefaults] setObject:selected.identifier forKey:kActiveCameraIDDefaultsKey];
+    }
+    self.activeCamera = selected;
 }
 
 - (SyPCamera *)activeCamera
@@ -110,12 +122,11 @@ EdsError SyPHandleCameraAdded(EdsVoid *inContext )
                 CGLReleasePixelFormat(pixelFormat);
             }
             
-            
-            
             if (result == kCGLNoError)
             {
                 glEnable(GL_TEXTURE_RECTANGLE_ARB);
                 glDisable(GL_DEPTH);
+                glPixelStorei(GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
             }
             else
             {
@@ -127,7 +138,12 @@ EdsError SyPHandleCameraAdded(EdsVoid *inContext )
         {
             _server = [[SyphonServer alloc] initWithName:@"" context:cgl_ctx options:nil];
         }
-        [_active startLiveViewWithHandler:^(id camera, SyPImageBuffer *image) {
+        _server.name = activeCamera.name;
+        if (_queue == nil)
+        {
+            _queue = dispatch_queue_create("cx.kriss.syphamera.liveview", DISPATCH_QUEUE_SERIAL);
+        }
+        [_active startLiveViewOnQueue:_queue withHandler:^(SyPImageBuffer *image) {
             int width, height;
             int result = tjDecompressHeader(_decompressor, image.baseAddress, image.length, &width, &height);
             if (result == 0)
@@ -138,6 +154,8 @@ EdsError SyPHandleCameraAdded(EdsVoid *inContext )
                     free(_buffer);
                     _bufferSize = wanted_bpr * height;
                     _buffer = malloc(_bufferSize);
+                    glTextureRangeAPPLE(GL_TEXTURE_RECTANGLE_ARB, _bufferSize, _buffer);
+                    
                 }
                 result = tjDecompress2(_decompressor, image.baseAddress, image.length, _buffer, width, wanted_bpr, height, TJPF_BGRA, TJFLAG_BOTTOMUP);
                 if (result == 0)
@@ -154,6 +172,9 @@ EdsError SyPHandleCameraAdded(EdsVoid *inContext )
                     if (serverImage)
                     {
                         glBindTexture(GL_TEXTURE_RECTANGLE_ARB, serverImage.textureName);
+                        glTexParameteri(GL_TEXTURE_RECTANGLE_ARB,
+                                        GL_TEXTURE_STORAGE_HINT_APPLE,
+                                        GL_STORAGE_SHARED_APPLE);
                         glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _buffer);
                         glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
                         [_server bindToDrawFrameOfSize:(NSSize){width, height}];
@@ -163,6 +184,14 @@ EdsError SyPHandleCameraAdded(EdsVoid *inContext )
                 }
             }
         }];
+    }
+    else if (_queue)
+    {
+        dispatch_async(_queue, ^{
+            [_server stop];
+            [_server release];
+            _server = nil;
+        });
     }
 }
 @end

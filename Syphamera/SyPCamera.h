@@ -10,11 +10,21 @@
 
 @class SyPImageBuffer;
 
-typedef void(^SyPCameraImageHandler)(id camera, SyPImageBuffer *image);
+extern NSString * const SyPCameraAddedNotification;
+extern NSString * const SyPCameraRemovedNotification;
+
+typedef void(^SyPCameraImageHandler)(SyPImageBuffer *image);
 
 @interface SyPCamera : NSObject
++ (NSSet *)cameras;
 @property (readonly) NSString *name;
-- (NSError *)startLiveViewWithHandler:(SyPCameraImageHandler)handler;
+@property (readonly) NSString *identifier; // Unique per device and persistent
+- (NSError *)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler;
 - (NSError *)stopLiveView;
 - (SyPImageBuffer *)newLiveViewImage;
+@end
+
+@interface SyPCamera (Subclassing)
++ (void)addCamera:(SyPCamera *)added;
++ (void)removeCamera:(SyPCamera *)removed;
 @end
