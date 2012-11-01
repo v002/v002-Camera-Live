@@ -80,7 +80,6 @@
 		E2B4025E15F4F9BE00A2D1C9 /* SyPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPAppDelegate.h; sourceTree = "<group>"; };
 		E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyPAppDelegate.m; sourceTree = "<group>"; };
 		E2B4026215F4F9BE00A2D1C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		E2B4027215F4FE0400A2D1C9 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		E2B4027415F4FE0400A2D1C9 /* DPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DPP.framework; sourceTree = "<group>"; };
 		E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EDSDK.framework; sourceTree = "<group>"; };
 		E2B4027715F4FE0400A2D1C9 /* EDSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDK.h; sourceTree = "<group>"; };
@@ -237,7 +236,6 @@
 		E2B4027115F4FE0400A2D1C9 /* EDSDK */ = {
 			isa = PBXGroup;
 			children = (
-				E2B4027215F4FE0400A2D1C9 /* .gitignore */,
 				E2B4027315F4FE0400A2D1C9 /* Framework */,
 				E2B4027615F4FE0400A2D1C9 /* Header */,
 			);
