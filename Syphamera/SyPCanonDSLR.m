@@ -110,7 +110,7 @@ static EdsError SyPCanonDSLRHandleStateEvent(EdsStateEvent           inEvent,
     }
     else
     {
-        NSLog(@"new state %lu", inEvent);
+//        NSLog(@"new state %lu", inEvent);
     }
     return EDS_ERR_OK;
 }

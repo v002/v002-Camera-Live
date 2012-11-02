@@ -151,11 +151,6 @@
                 glDisable(GL_DEPTH);
                 glPixelStorei(GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
             }
-            else
-            {
-                NSLog(@"bums error creating context");
-            }
-
         }
         if (_server == nil && cgl_ctx)
         {
