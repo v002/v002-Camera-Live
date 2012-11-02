@@ -216,8 +216,7 @@
 				E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */,
 				E2B4025315F4F9BE00A2D1C9 /* Supporting Files */,
 			);
-			name = "Camera Live";
-			path = Syphamera;
+			path = "Camera Live";
 			sourceTree = "<group>";
 		};
 		E2B4025315F4F9BE00A2D1C9 /* Supporting Files */ = {
@@ -415,8 +414,8 @@
 					"\"$(SRCROOT)/Syphon\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Syphamera/Camera-Live-Prefix.pch";
-				INFOPLIST_FILE = "Syphamera/Camera-Live-Info.plist";
+				GCC_PREFIX_HEADER = "Camera Live/Camera-Live-Prefix.pch";
+				INFOPLIST_FILE = "Camera Live/Camera-Live-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -437,8 +436,8 @@
 					"\"$(SRCROOT)/Syphon\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Syphamera/Camera-Live-Prefix.pch";
-				INFOPLIST_FILE = "Syphamera/Camera-Live-Info.plist";
+				GCC_PREFIX_HEADER = "Camera Live/Camera-Live-Prefix.pch";
+				INFOPLIST_FILE = "Camera Live/Camera-Live-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
