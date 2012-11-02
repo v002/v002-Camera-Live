@@ -40,5 +40,6 @@
     BOOL _hasSession;
     NSString *_identifier;
     dispatch_source_t _timer;
+    dispatch_queue_t _queue;
 }
 @end

@@ -175,6 +175,7 @@ __attribute__((destructor)) static void finalizer()
     EdsSetPropertyEventHandler(_camera, kEdsPropertyEvent_All, NULL, NULL);
     EdsSetCameraStateEventHandler(_camera, kEdsStateEvent_All, NULL, NULL);
     EdsRelease(_camera);
+    if (_queue) dispatch_release(_queue);
     [super dealloc];
 }
 
@@ -267,11 +268,17 @@ static SyPCanonDSLR *mSession;
     }
     if (result == EDS_ERR_OK)
     {
-        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+        if (_queue == NULL)
+        {
+            _queue = dispatch_queue_create("info.v002.Camera-Live.Canon.liveview", DISPATCH_QUEUE_SERIAL);
+        }
+        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, _queue);
         dispatch_source_set_event_handler(_timer, ^{
             // TODO: this causes a retain loop until the source is cancelled, we could avoid that
             SyPImageBuffer *image = [self newLiveViewImage];
-            handler(image);
+            dispatch_async(queue, ^{
+                handler(image);
+            });
             [image release];
         });
         dispatch_source_set_cancel_handler(_timer, ^{

@@ -159,7 +159,7 @@
         _server.name = activeCamera.name;
         if (_queue == nil)
         {
-            _queue = dispatch_queue_create("cx.kriss.Camera Live.liveview", DISPATCH_QUEUE_SERIAL);
+            _queue = dispatch_queue_create("info.v002.Camera-Live.liveview", DISPATCH_QUEUE_SERIAL);
         }
         [_active startLiveViewOnQueue:_queue withHandler:^(SyPImageBuffer *image) {
             int width, height;
