@@ -40,6 +40,8 @@
     BOOL _hasSession;
     NSString *_identifier;
     dispatch_source_t _timer;
+    dispatch_source_t _stayAliveTimer;
     dispatch_queue_t _queue;
+    NSUInteger _timersAlive;
 }
 @end
