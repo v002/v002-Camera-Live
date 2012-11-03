@@ -7,7 +7,7 @@ Currently the only supported cameras are Canon DSLRs.
 
 You can download the app here
 
-[v002 Camera Live][https://github.com/downloads/v002/v002-Camera-Live/Camera%20Live.zip]
+[v002 Camera Live](https://github.com/downloads/v002/v002-Camera-Live/Camera%20Live.zip)
 
 Building From Source
 --------------------
