@@ -178,27 +178,20 @@
                 result = tjDecompress2(_decompressor, image.baseAddress, image.length, _buffer, width, wanted_bpr, height, TJPF_BGRA, TJFLAG_BOTTOMUP);
                 if (result == 0)
                 {
-                    SyphonImage *serverImage = [_server newFrameImage];
-                    if (serverImage == nil || serverImage.textureSize.width != width || serverImage.textureSize.height != height)
+                    if ([_server bindToDrawFrameOfSize:(NSSize){width, height}])
                     {
-                        [serverImage release];
-                        [_server bindToDrawFrameOfSize:(NSSize){width, height}];
-                        [_server unbindAndPublish];
-                        serverImage = [_server newFrameImage];
-                    }
-                    
-                    if (serverImage)
-                    {
-                        glBindTexture(GL_TEXTURE_RECTANGLE_ARB, serverImage.textureName);
-                        glTexParameteri(GL_TEXTURE_RECTANGLE_ARB,
-                                        GL_TEXTURE_STORAGE_HINT_APPLE,
-                                        GL_STORAGE_SHARED_APPLE);
-                        glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _buffer);
-                        glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
-                        [_server bindToDrawFrameOfSize:(NSSize){width, height}];
+                        SyphonImage *serverImage = [_server newFrameImage];
+                        if (serverImage)
+                        {
+                            glBindTexture(GL_TEXTURE_RECTANGLE_ARB, serverImage.textureName);
+                            glTexParameteri(GL_TEXTURE_RECTANGLE_ARB,
+                                            GL_TEXTURE_STORAGE_HINT_APPLE,
+                                            GL_STORAGE_SHARED_APPLE);
+                            glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _buffer);
+                            glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
+                        }
                         [_server unbindAndPublish];
                     }
-                    [serverImage release];
                 }
             }
         }];
