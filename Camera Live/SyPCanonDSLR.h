@@ -43,5 +43,7 @@
     dispatch_source_t _stayAliveTimer;
     dispatch_queue_t _queue;
     NSUInteger _timersAlive;
+    id _sleepObserver;
+    id _wakeObserver;
 }
 @end

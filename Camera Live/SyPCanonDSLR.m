@@ -265,6 +265,35 @@ __attribute__((destructor)) static void finalizer()
     });
 }
 
+- (void)startToObserveSleepWithQueue:(dispatch_queue_t)queue handler:(SyPCameraImageHandler)handler
+{
+    _sleepObserver = [[[NSWorkspace sharedWorkspace] notificationCenter] addObserverForName:NSWorkspaceWillSleepNotification
+                                                                                     object:nil
+                                                                                      queue:nil
+                                                                                 usingBlock:^(NSNotification *note) {
+                                                                                     [self stopLiveView];
+                                                                                     [self startToObserveWakeWithQueue:queue handler:handler];
+                                                                                 }];
+}
+
+- (void)startToObserveWakeWithQueue:(dispatch_queue_t)queue handler:(SyPCameraImageHandler)handler
+{
+    _wakeObserver = [[[NSWorkspace sharedWorkspace] notificationCenter] addObserverForName:NSWorkspaceDidWakeNotification
+                                                                                    object:nil
+                                                                                     queue:nil
+                                                                                usingBlock:^(NSNotification *note) {
+                                                                                    [self resumeLiveViewOnQueue:queue
+                                                                                                    withHandler:handler];
+                                                                                }];
+}
+
+- (void)resumeLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
+{
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:_wakeObserver];
+    _wakeObserver = nil;
+    [self startLiveViewOnQueue:queue withHandler:handler];
+}
+
 - (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
 {
     dispatch_async([self cameraQueue], ^{
@@ -308,10 +337,14 @@ __attribute__((destructor)) static void finalizer()
     dispatch_source_set_timer(_stayAliveTimer, DISPATCH_TIME_NOW, NSEC_PER_SEC * 60 * 28, NSEC_PER_SEC * 30);
     dispatch_resume(_stayAliveTimer);
     dispatch_resume(_timer);
+    
+    [self startToObserveSleepWithQueue:queue handler:handler];
 }
 
 - (void)stopLiveView
 {
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:_sleepObserver];
+    _sleepObserver = nil;
     dispatch_source_cancel(_timer);
     dispatch_release(_timer);
     _timer = NULL;
