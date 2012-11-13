@@ -46,7 +46,7 @@
 @interface SyPCanonDSLR (Camera)
 - (NSError *)startSessionOnQueue;
 - (NSError *)endSessionOnQueue;
-- (SyPImageBuffer *)newLiveViewImageOnQueue;
+- (SyPImageBuffer *)newLiveViewImageOnQueueWithError:(NSError **)error;
 - (void)endTimerOnQueue;
 @end
 
@@ -279,9 +279,10 @@ __attribute__((destructor)) static void finalizer()
     _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, [self cameraQueue]);
     dispatch_source_set_event_handler(_timer, ^{
         // TODO: this causes a retain loop until the source is cancelled, we could avoid that
-        SyPImageBuffer *image = [self newLiveViewImageOnQueue];
-        if (image) dispatch_async(queue, ^{
-            handler(image, nil);
+        NSError *error = nil;
+        SyPImageBuffer *image = [self newLiveViewImageOnQueueWithError:&error];
+        if (image || error) dispatch_async(queue, ^{
+            handler(image, error);
         });
         [image release];
     });
@@ -375,7 +376,7 @@ static SyPCanonDSLR *mSession;
     }
 }
 
-- (SyPImageBuffer *)newLiveViewImageOnQueue
+- (SyPImageBuffer *)newLiveViewImageOnQueueWithError:(NSError **)error
 {
     SyPCanonEVFImageBuffer *image = [[SyPCanonEVFImageBuffer alloc] init];
     if (image)
@@ -390,6 +391,10 @@ static SyPCanonDSLR *mSession;
         }
         if (result != EDS_ERR_OK)
         {
+            if (result != EDS_ERR_OBJECT_NOTREADY)
+            {
+                *error = [SyPCanonDSLR errorForEDSError:result];
+            }
             [image release];
             image = nil;
         }
