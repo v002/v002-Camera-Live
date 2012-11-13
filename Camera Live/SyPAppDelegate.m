@@ -136,6 +136,18 @@
     }
     if (_active)
     {
+        if (_noSleepAssertion == 0)
+        {
+            IOPMAssertionCreateWithDescription(kIOPMAssertionTypePreventUserIdleSystemSleep,
+                                               CFSTR("Live Camera View"),
+                                               CFSTR("Maintaining connection to camera"),
+                                               NULL,
+                                               NULL,
+                                               0,
+                                               NULL,
+                                               &_noSleepAssertion);
+        }
+        
         dispatch_async(_queue, ^{
             _started = NO;
         });
@@ -253,15 +265,23 @@
         }
         self.toolbarDelegate.status = status;
     }
-    else if (_queue)
+    else
     {
         if ([self.cameras count]) self.toolbarDelegate.status = @"Ready";
         else self.toolbarDelegate.status = @"No Camera";
-        dispatch_async(_queue, ^{
-            [_server stop];
-            [_server release];
-            _server = nil;
-        });
+        if (_noSleepAssertion)
+        {
+            IOPMAssertionRelease(_noSleepAssertion);
+            _noSleepAssertion = 0;
+        }
+        if (_queue)
+        {
+            dispatch_async(_queue, ^{
+                [_server stop];
+                [_server release];
+                _server = nil;
+            });
+        }
     }
 }
 @end

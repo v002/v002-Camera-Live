@@ -31,6 +31,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <OpenGL/OpenGL.h>
+#import <IOKit/pwr_mgt/IOPMLib.h>
 #import "turbojpeg.h"
 #import "Syphon/Syphon.h"
 #import "SyPToolbarDelegate.h"
@@ -52,6 +53,7 @@
     BOOL _started;
     SyphonServer *_server;
     CGLContextObj cgl_ctx;
+    IOPMAssertionID _noSleepAssertion;
 }
 @property (assign) IBOutlet NSWindow *window;
 @property (readonly) NSArray *cameras;
