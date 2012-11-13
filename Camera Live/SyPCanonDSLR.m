@@ -97,6 +97,7 @@ static EdsError SyPCanonDSLRHandleCameraAdded(EdsVoid *inContext )
     return EDS_ERR_OK;
 }
 
+/*
 static EdsError SyPCanonDSLRHandlePropertyEvent(EdsPropertyEvent        inEvent,
                                                 EdsPropertyID           inPropertyID,
                                                 EdsUInt32               inParam,
@@ -105,6 +106,7 @@ static EdsError SyPCanonDSLRHandlePropertyEvent(EdsPropertyEvent        inEvent,
 //    NSLog(@"property propertyID %08lX param %lu", inPropertyID, inParam);
     return EDS_ERR_OK;
 }
+*/
 
 static EdsError SyPCanonDSLRHandleStateEvent(EdsStateEvent           inEvent,
                                              EdsUInt32               inEventData,
@@ -165,10 +167,12 @@ __attribute__((destructor)) static void finalizer()
         _camera = ref;
         
         EdsError result = EdsGetDeviceInfo(_camera, &_info);
+        /*
         if (result == EDS_ERR_OK)
         {
             result = EdsSetPropertyEventHandler(_camera, kEdsPropertyEvent_All, SyPCanonDSLRHandlePropertyEvent, self);
         }
+         */
         if (result == EDS_ERR_OK)
         {
             result = EdsSetCameraStateEventHandler(_camera, kEdsStateEvent_All, SyPCanonDSLRHandleStateEvent, self);
@@ -184,8 +188,7 @@ __attribute__((destructor)) static void finalizer()
 
 - (void)dealloc
 {
-    EdsSetObjectEventHandler(_camera, kEdsObjectEvent_All, NULL, NULL);
-    EdsSetPropertyEventHandler(_camera, kEdsPropertyEvent_All, NULL, NULL);
+//    EdsSetPropertyEventHandler(_camera, kEdsPropertyEvent_All, NULL, NULL);
     EdsSetCameraStateEventHandler(_camera, kEdsStateEvent_All, NULL, NULL);
     EdsRelease(_camera);
     if (_queue) dispatch_release(_queue);
