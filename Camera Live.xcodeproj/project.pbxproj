@@ -15,6 +15,7 @@
 		E225493015F751BF00160073 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; };
 		E225494015F7531700160073 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E225493F15F7531700160073 /* OpenGL.framework */; };
 		E225494115F7569900160073 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; };
+		E227AE3C1651D6B60045679D /* SyPToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */; };
 		E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */; };
 		E2B4025715F4F9BE00A2D1C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2B4025515F4F9BE00A2D1C9 /* InfoPlist.strings */; };
 		E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025815F4F9BE00A2D1C9 /* main.m */; };
@@ -66,6 +67,8 @@
 		E225491E15F642D100160073 /* SyPImageFormats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPImageFormats.h; sourceTree = "<group>"; };
 		E225492F15F751BF00160073 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		E225493F15F7531700160073 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		E227AE3A1651D6B60045679D /* SyPToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPToolbarDelegate.h; sourceTree = "<group>"; };
+		E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPToolbarDelegate.m; sourceTree = "<group>"; };
 		E2B4024815F4F9BE00A2D1C9 /* Camera Live.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Camera Live.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E2B4024F15F4F9BE00A2D1C9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -205,6 +208,8 @@
 			children = (
 				E2B4025E15F4F9BE00A2D1C9 /* SyPAppDelegate.h */,
 				E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */,
+				E227AE3A1651D6B60045679D /* SyPToolbarDelegate.h */,
+				E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */,
 				E2B4029715F50E0D00A2D1C9 /* SyPCamera.h */,
 				E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */,
 				E225491E15F642D100160073 /* SyPImageFormats.h */,
@@ -330,6 +335,7 @@
 				E225490E15F6289A00160073 /* SyPImage.m in Sources */,
 				E225491215F62C6800160073 /* SyPImageBuffer.m in Sources */,
 				E225491515F62DD200160073 /* SyPCanonEVFImageBuffer.m in Sources */,
+				E227AE3C1651D6B60045679D /* SyPToolbarDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

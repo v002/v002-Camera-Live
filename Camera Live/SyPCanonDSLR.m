@@ -298,13 +298,15 @@ static SyPCanonDSLR *mSession;
     }
 }
 
-- (NSError *)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
+- (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
 {
-    NSError *error = [self startSession];
-    if (error) return error;
-    
     dispatch_async([self cameraQueue], ^{
         _timersAlive += 2;
+    });
+    
+    dispatch_async([self cameraQueue], ^{
+        NSError *error = [self startSession];
+        if (error) handler(nil, error);
     });
     
     _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, [self cameraQueue]);
@@ -312,7 +314,7 @@ static SyPCanonDSLR *mSession;
         // TODO: this causes a retain loop until the source is cancelled, we could avoid that
         SyPImageBuffer *image = [self newLiveViewImage];
         if (image) dispatch_async(queue, ^{
-            handler(image);
+            handler(image, nil);
         });
         [image release];
     });
@@ -338,10 +340,9 @@ static SyPCanonDSLR *mSession;
     dispatch_source_set_timer(_stayAliveTimer, DISPATCH_TIME_NOW, NSEC_PER_SEC * 60 * 28, NSEC_PER_SEC * 30);
     dispatch_resume(_stayAliveTimer);
     dispatch_resume(_timer);
-    return nil;
 }
 
-- (NSError *)stopLiveView
+- (void)stopLiveView
 {    
     dispatch_source_cancel(_timer);
     dispatch_release(_timer);
@@ -349,7 +350,6 @@ static SyPCanonDSLR *mSession;
     dispatch_source_cancel(_stayAliveTimer);
     dispatch_release(_stayAliveTimer);
     _stayAliveTimer = NULL;
-    return nil;
 }
 
 - (SyPImage *)newLiveViewImage

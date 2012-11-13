@@ -49,6 +49,7 @@
     [self.camerasArrayController addObject:camera];
     if (self.activeCamera == nil)
     {
+        self.toolbarDelegate.status = @"Ready";
         NSString *previousID = [[NSUserDefaults standardUserDefaults] objectForKey:kActiveCameraIDDefaultsKey];
         if ([previousID isEqualToString:camera.identifier])
         {
@@ -60,14 +61,19 @@
 - (void)removeCamera:(SyPCamera *)camera
 {
     [self.camerasArrayController removeObject:camera];
+    if ([self.cameras count] == 0)
+    {
+        self.toolbarDelegate.status = @"No Camera";
+    }
 }
 
-@synthesize window = _window, camerasArrayController = _camerasArrayController;
+@synthesize window = _window, camerasArrayController = _camerasArrayController, toolbarDelegate = _toolbarDelegate;
 
 - (NSArray *)cameras { return _cameras; }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    self.toolbarDelegate.status = @"No Camera";
     _cameras = [[NSMutableArray alloc] initWithCapacity:4];
     _decompressor = tjInitDecompress();
     [self bind:@"selectedCameras" toObject:self.camerasArrayController withKeyPath:@"selectedObjects" options:nil];
@@ -124,8 +130,13 @@
     [_active stopLiveView];
     [_active release];
     _active = activeCamera;
+    if (_queue == nil)
+    {
+        _queue = dispatch_queue_create("info.v002.Camera-Live.liveview", DISPATCH_QUEUE_SERIAL);
+    }
     if (_active)
     {
+        NSString *status = nil;
         if (cgl_ctx == nil)
         {
             CGLPixelFormatAttribute attribs[] = {
@@ -151,53 +162,90 @@
                 glDisable(GL_DEPTH);
                 glPixelStorei(GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
             }
-        }
-        if (_server == nil && cgl_ctx)
-        {
-            _server = [[SyphonServer alloc] initWithName:@"" context:cgl_ctx options:nil];
-        }
-        _server.name = activeCamera.name;
-        if (_queue == nil)
-        {
-            _queue = dispatch_queue_create("info.v002.Camera-Live.liveview", DISPATCH_QUEUE_SERIAL);
-        }
-        [_active startLiveViewOnQueue:_queue withHandler:^(SyPImageBuffer *image) {
-            int width, height;
-            int result = tjDecompressHeader(_decompressor, image.baseAddress, image.length, &width, &height);
-            if (result == 0)
+            else
             {
-                size_t wanted_bpr = TJPAD(tjPixelSize[TJPF_BGRA] * width);
-                if (wanted_bpr * height != _bufferSize)
+                status = @"OpenGL Error";
+            }
+        }
+        if (_server == nil && status == nil)
+        {
+            _server = [[SyphonServer alloc] initWithName:activeCamera.name context:cgl_ctx options:nil];
+            if (_server == nil)
+            {
+                status = @"Syphon Error";
+            }
+        }
+        else if (status == nil)
+        {
+            _server.name = activeCamera.name;
+        }
+        if (status == nil)
+        {
+            [_active startLiveViewOnQueue:_queue withHandler:^(SyPImageBuffer *image, NSError *error) {
+                if (image)
                 {
-                    free(_buffer);
-                    _bufferSize = wanted_bpr * height;
-                    _buffer = malloc(_bufferSize);
-                    glTextureRangeAPPLE(GL_TEXTURE_RECTANGLE_ARB, _bufferSize, _buffer);
-                    
-                }
-                result = tjDecompress2(_decompressor, image.baseAddress, image.length, _buffer, width, wanted_bpr, height, TJPF_BGRA, TJFLAG_BOTTOMUP);
-                if (result == 0)
-                {
-                    if ([_server bindToDrawFrameOfSize:(NSSize){width, height}])
+                    int width, height;
+                    int result = tjDecompressHeader(_decompressor, image.baseAddress, image.length, &width, &height);
+                    if (result == 0)
                     {
-                        SyphonImage *serverImage = [_server newFrameImage];
-                        if (serverImage)
+                        size_t wanted_bpr = TJPAD(tjPixelSize[TJPF_BGRA] * width);
+                        if (wanted_bpr * height != _bufferSize)
                         {
-                            glBindTexture(GL_TEXTURE_RECTANGLE_ARB, serverImage.textureName);
-                            glTexParameteri(GL_TEXTURE_RECTANGLE_ARB,
-                                            GL_TEXTURE_STORAGE_HINT_APPLE,
-                                            GL_STORAGE_SHARED_APPLE);
-                            glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _buffer);
-                            glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
+                            free(_buffer);
+                            _bufferSize = wanted_bpr * height;
+                            _buffer = malloc(_bufferSize);
+                            glTextureRangeAPPLE(GL_TEXTURE_RECTANGLE_ARB, _bufferSize, _buffer);
+                            
                         }
-                        [_server unbindAndPublish];
+                        result = tjDecompress2(_decompressor, image.baseAddress, image.length, _buffer, width, wanted_bpr, height, TJPF_BGRA, TJFLAG_BOTTOMUP);
+                        if (result == 0)
+                        {
+                            if ([_server bindToDrawFrameOfSize:(NSSize){width, height}])
+                            {
+                                SyphonImage *serverImage = [_server newFrameImage];
+                                if (serverImage)
+                                {
+                                    glBindTexture(GL_TEXTURE_RECTANGLE_ARB, serverImage.textureName);
+                                    glTexParameteri(GL_TEXTURE_RECTANGLE_ARB,
+                                                    GL_TEXTURE_STORAGE_HINT_APPLE,
+                                                    GL_STORAGE_SHARED_APPLE);
+                                    glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _buffer);
+                                    glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
+                                }
+                                [_server unbindAndPublish];
+                            }
+                        }
                     }
                 }
-            }
-        }];
+                else if (error)
+                {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        self.toolbarDelegate.status = @"Camera Error";
+                    }];
+                }
+            }];
+        }
+        if (status)
+        {
+            [_active release];
+            _active = nil;
+            [_camerasArrayController setSelectedObjects:[NSArray array]];
+            dispatch_async(_queue, ^{
+                [_server stop];
+                [_server release];
+                _server = nil;
+            });
+        }
+        else
+        {
+            status = @"Active";
+        }
+        self.toolbarDelegate.status = status;
     }
     else if (_queue)
     {
+        if ([self.cameras count]) self.toolbarDelegate.status = @"Ready";
+        else self.toolbarDelegate.status = @"No Camera";
         dispatch_async(_queue, ^{
             [_server stop];
             [_server release];

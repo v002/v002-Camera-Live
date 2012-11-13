@@ -1,8 +1,8 @@
 /*
- SyPCamera.h
+ SyPToolbarDelegate.m
  Camera Live
  
- Created by Tom Butterworth on 03/09/2012.
+ Created by Tom Butterworth on 13/11/2012.
  
  Copyright (c) 2012 Tom Butterworth & Anton Marini.
  All rights reserved.
@@ -29,25 +29,42 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
+#import "SyPToolbarDelegate.h"
 
-@class SyPImageBuffer;
+@implementation SyPToolbarDelegate
 
-extern NSString * const SyPCameraAddedNotification;
-extern NSString * const SyPCameraRemovedNotification;
+@synthesize status;
 
-typedef void(^SyPCameraImageHandler)(SyPImageBuffer *image, NSError *error);
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
+{
+    return [NSArray arrayWithObjects:
+            NSToolbarFlexibleSpaceItemIdentifier,
+            @"StatusItemIdentifier",
+            NSToolbarFlexibleSpaceItemIdentifier,
+            nil];
+}
 
-@interface SyPCamera : NSObject
-+ (NSSet *)cameras;
-@property (readonly) NSString *name;
-@property (readonly) NSString *identifier; // Unique per device and persistent
-- (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler;
-- (void)stopLiveView;
-- (SyPImageBuffer *)newLiveViewImage;
-@end
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
+{
+    return [NSArray arrayWithObjects:NSToolbarFlexibleSpaceItemIdentifier, @"StatusItemIdentifier", nil];
+}
 
-@interface SyPCamera (Subclassing)
-+ (void)addCamera:(SyPCamera *)added;
-+ (void)removeCamera:(SyPCamera *)removed;
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
+{
+    NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+    if ([itemIdentifier isEqualToString:@"StatusItemIdentifier"])
+    {
+        [item setLabel:@"Status"];
+        [item setPaletteLabel:@"Status"];
+        [item setToolTip:@"Status"];
+        [statusBox setCornerRadius:4.0];
+        [item setView:statusBox];
+    }
+    else
+    {
+        item = nil;
+    }
+    return item;
+}
+
 @end

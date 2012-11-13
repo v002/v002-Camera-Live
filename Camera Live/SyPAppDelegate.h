@@ -33,6 +33,7 @@
 #import <OpenGL/OpenGL.h>
 #import "turbojpeg.h"
 #import "Syphon/Syphon.h"
+#import "SyPToolbarDelegate.h"
 
 @class SyPCamera;
 
@@ -40,6 +41,7 @@
 {
     NSWindow *_window;
     NSArrayController *_camerasArrayController;
+    SyPToolbarDelegate *_toolbarDelegate;
     NSMutableArray *_cameras;
     NSArray *_selectedCameras;
     dispatch_queue_t _queue;
@@ -55,4 +57,5 @@
 @property (readwrite, retain) SyPCamera *activeCamera;
 @property (readwrite, retain) NSArray *selectedCameras;
 @property (assign) IBOutlet NSArrayController *camerasArrayController;
+@property (assign) IBOutlet SyPToolbarDelegate *toolbarDelegate;
 @end
