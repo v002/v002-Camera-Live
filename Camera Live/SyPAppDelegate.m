@@ -136,6 +136,10 @@
     }
     if (_active)
     {
+        dispatch_async(_queue, ^{
+            _started = NO;
+        });
+        
         NSString *status = nil;
         if (cgl_ctx == nil)
         {
@@ -184,6 +188,13 @@
             [_active startLiveViewOnQueue:_queue withHandler:^(SyPImageBuffer *image, NSError *error) {
                 if (image)
                 {
+                    if (!_started)
+                    {
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            self.toolbarDelegate.status = @"Active";
+                        }];
+                        _started = YES;
+                    }
                     int width, height;
                     int result = tjDecompressHeader(_decompressor, image.baseAddress, image.length, &width, &height);
                     if (result == 0)
@@ -238,7 +249,7 @@
         }
         else
         {
-            status = @"Active";
+            status = @"Starting";
         }
         self.toolbarDelegate.status = status;
     }

@@ -49,6 +49,7 @@
     tjhandle _decompressor;
     void *_buffer;
     size_t _bufferSize;
+    BOOL _started;
     SyphonServer *_server;
     CGLContextObj cgl_ctx;
 }
