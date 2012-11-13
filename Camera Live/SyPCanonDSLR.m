@@ -158,7 +158,6 @@ __attribute__((destructor)) static void finalizer()
         _camera = ref;
         
         EdsError result = EdsGetDeviceInfo(_camera, &_info);
-        [self startSession];
         if (result == EDS_ERR_OK)
         {
             result = EdsSetPropertyEventHandler(_camera, kEdsPropertyEvent_All, SyPCanonDSLRHandlePropertyEvent, self);
@@ -352,7 +351,7 @@ static SyPCanonDSLR *mSession;
     _stayAliveTimer = NULL;
 }
 
-- (SyPImage *)newLiveViewImage
+- (SyPImageBuffer *)newLiveViewImage
 {
     SyPCanonEVFImageBuffer *image = [[SyPCanonEVFImageBuffer alloc] init];
     if (image)

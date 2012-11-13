@@ -77,5 +77,4 @@ NSString * const SyPCameraRemovedNotification = @"SyPCameraRemovedNotification";
 - (NSString *)identifier { return @""; }
 - (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler { }
 - (void)stopLiveView { }
-- (SyPImageBuffer *)newLiveViewImage { return nil; }
 @end
