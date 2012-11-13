@@ -33,14 +33,21 @@
 #import "SyPCanonEVFImageBuffer.h"
 
 @interface SyPCanonDSLR (Private)
-+ (void)handleCameraConnectionEvent;
 + (NSError *)errorForEDSError:(EdsError)code;
 - (id)initWithCanonCameraRef:(EdsCameraRef)ref;
 @property (readonly) EdsDeviceInfo *deviceInfo;
-- (NSError *)startSession;
-- (NSError *)endSession;
-- (dispatch_queue_t)cameraQueue;
 - (void)extendShutdown;
+- (dispatch_queue_t)cameraQueue;
+@end
+
+/*
+ Only call the following on cameraQueue:
+ */
+@interface SyPCanonDSLR (Camera)
+- (NSError *)startSessionOnQueue;
+- (NSError *)endSessionOnQueue;
+- (SyPImageBuffer *)newLiveViewImageOnQueue;
+- (void)endTimerOnQueue;
 @end
 
 static EdsError SyPCanonDSLRHandleCameraAdded(EdsVoid *inContext )
@@ -177,7 +184,6 @@ __attribute__((destructor)) static void finalizer()
 
 - (void)dealloc
 {
-    [self endSession];
     EdsSetObjectEventHandler(_camera, kEdsObjectEvent_All, NULL, NULL);
     EdsSetPropertyEventHandler(_camera, kEdsPropertyEvent_All, NULL, NULL);
     EdsSetCameraStateEventHandler(_camera, kEdsStateEvent_All, NULL, NULL);
@@ -208,38 +214,114 @@ __attribute__((destructor)) static void finalizer()
 {
     if (_identifier == nil)
     {
-        if ([self startSession] == nil)
-        {
-            EdsDataType propType;
-            EdsUInt32 propSize = 0;
-            
-            EdsError error = EdsGetPropertySize(_camera, kEdsPropID_BodyIDEx, 0, &propType, &propSize);
-            
-            if (error == EDS_ERR_OK && propSize > 0)
+        dispatch_sync([self cameraQueue], ^{
+            if ([self startSessionOnQueue] == nil)
             {
-                char uidCString[propSize];
+                EdsDataType propType;
+                EdsUInt32 propSize = 0;
                 
-                error = EdsGetPropertyData(_camera, kEdsPropID_BodyIDEx, 0, propSize, &uidCString);
+                EdsError error = EdsGetPropertySize(_camera, kEdsPropID_BodyIDEx, 0, &propType, &propSize);
                 
-                if (error == EDS_ERR_OK)
+                if (error == EDS_ERR_OK && propSize > 0)
                 {
-                    NSString *identifier = [@"SyPCanonDSLR-" stringByAppendingString:[NSString stringWithCString:uidCString encoding:NSASCIIStringEncoding]];
-                    [identifier retain];
-                    if (!OSAtomicCompareAndSwapPtr(nil, identifier, (void **)&_identifier))
+                    char uidCString[propSize];
+                    
+                    error = EdsGetPropertyData(_camera, kEdsPropID_BodyIDEx, 0, propSize, &uidCString);
+                    
+                    if (error == EDS_ERR_OK)
                     {
-                        [identifier release];
+                        NSString *identifier = [@"SyPCanonDSLR-" stringByAppendingString:[NSString stringWithCString:uidCString encoding:NSASCIIStringEncoding]];
+                        [identifier retain];
+                        if (!OSAtomicCompareAndSwapPtr(nil, identifier, (void **)&_identifier))
+                        {
+                            [identifier release];
+                        }
                     }
                 }
+                [self endSessionOnQueue];
             }
-            [self endSession];
-        }
+        });
     }
     return _identifier;
 }
 
+- (EdsDeviceInfo *)deviceInfo
+{
+    return &_info;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%p {%s, %s, %lu, %lu}", _camera, _info.szPortName, _info.szDeviceDescription, _info.deviceSubType, _info.reserved];
+}
+
+- (void)extendShutdown
+{
+    dispatch_async([self cameraQueue], ^{
+        EdsSendCommand(_camera, kEdsCameraCommand_ExtendShutDownTimer, 0);
+    });
+}
+
+- (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
+{
+    dispatch_async([self cameraQueue], ^{
+        _timersAlive += 2;
+    });
+    
+    dispatch_async([self cameraQueue], ^{
+        NSError *error = [self startSessionOnQueue];
+        if (error) handler(nil, error);
+    });
+    
+    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, [self cameraQueue]);
+    dispatch_source_set_event_handler(_timer, ^{
+        // TODO: this causes a retain loop until the source is cancelled, we could avoid that
+        SyPImageBuffer *image = [self newLiveViewImageOnQueue];
+        if (image) dispatch_async(queue, ^{
+            handler(image, nil);
+        });
+        [image release];
+    });
+    dispatch_source_set_cancel_handler(_timer, ^{
+        [self endTimerOnQueue];
+    });
+    dispatch_source_set_timer(_timer, DISPATCH_TIME_NOW, NSEC_PER_SEC / 60, 0);
+    
+    _stayAliveTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, [self cameraQueue]);
+    dispatch_source_set_event_handler(_stayAliveTimer, ^{
+        // Periodically set live view, otherwise it stops of its own accord after 30 minutes
+        EdsUInt32 device;
+        EdsError err = EdsGetPropertyData(_camera, kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
+        if(err == EDS_ERR_OK)
+        {
+            device |= kEdsEvfOutputDevice_PC;
+            EdsSetPropertyData(_camera, kEdsPropID_Evf_OutputDevice, 0 , sizeof(device), &device);
+        }
+    });
+    dispatch_source_set_cancel_handler(_stayAliveTimer, ^{
+        [self endTimerOnQueue];
+    });
+    dispatch_source_set_timer(_stayAliveTimer, DISPATCH_TIME_NOW, NSEC_PER_SEC * 60 * 28, NSEC_PER_SEC * 30);
+    dispatch_resume(_stayAliveTimer);
+    dispatch_resume(_timer);
+}
+
+- (void)stopLiveView
+{
+    dispatch_source_cancel(_timer);
+    dispatch_release(_timer);
+    _timer = NULL;
+    dispatch_source_cancel(_stayAliveTimer);
+    dispatch_release(_stayAliveTimer);
+    _stayAliveTimer = NULL;
+}
+@end
+
+@implementation SyPCanonDSLR (Camera)
+
 static SyPCanonDSLR *mSession;
 
-- (NSError *)startSession
+- (NSError *)startSessionOnQueue
 {
     NSError *error = nil;
     if (!_hasSession)
@@ -258,7 +340,7 @@ static SyPCanonDSLR *mSession;
     return error;
 }
 
-- (NSError *)endSession
+- (NSError *)endSessionOnQueue
 {
     NSError *error = nil;
     if (_hasSession)
@@ -271,14 +353,7 @@ static SyPCanonDSLR *mSession;
     return error;
 }
 
-- (void)extendShutdown
-{
-    dispatch_async([self cameraQueue], ^{
-        EdsSendCommand(_camera, kEdsCameraCommand_ExtendShutDownTimer, 0);
-    });
-}
-
-- (void)endTimer
+- (void)endTimerOnQueue
 {
     _timersAlive--;
     if (_timersAlive == 0)
@@ -293,65 +368,11 @@ static SyPCanonDSLR *mSession;
             EdsSetPropertyData(_camera, kEdsPropID_Evf_OutputDevice, 0 , sizeof(device), &device);
         }
         
-        [self endSession];
+        [self endSessionOnQueue];
     }
 }
 
-- (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
-{
-    dispatch_async([self cameraQueue], ^{
-        _timersAlive += 2;
-    });
-    
-    dispatch_async([self cameraQueue], ^{
-        NSError *error = [self startSession];
-        if (error) handler(nil, error);
-    });
-    
-    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, [self cameraQueue]);
-    dispatch_source_set_event_handler(_timer, ^{
-        // TODO: this causes a retain loop until the source is cancelled, we could avoid that
-        SyPImageBuffer *image = [self newLiveViewImage];
-        if (image) dispatch_async(queue, ^{
-            handler(image, nil);
-        });
-        [image release];
-    });
-    dispatch_source_set_cancel_handler(_timer, ^{
-        [self endTimer];
-    });
-    dispatch_source_set_timer(_timer, DISPATCH_TIME_NOW, NSEC_PER_SEC / 60, 0);
-    
-    _stayAliveTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, [self cameraQueue]);
-    dispatch_source_set_event_handler(_stayAliveTimer, ^{
-        // Periodically set live view, otherwise it stops of its own accord after 30 minutes
-        EdsUInt32 device;
-        EdsError err = EdsGetPropertyData(_camera, kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
-        if(err == EDS_ERR_OK)
-        {            
-            device |= kEdsEvfOutputDevice_PC;
-            EdsSetPropertyData(_camera, kEdsPropID_Evf_OutputDevice, 0 , sizeof(device), &device);
-        }
-    });
-    dispatch_source_set_cancel_handler(_stayAliveTimer, ^{
-        [self endTimer];
-    });
-    dispatch_source_set_timer(_stayAliveTimer, DISPATCH_TIME_NOW, NSEC_PER_SEC * 60 * 28, NSEC_PER_SEC * 30);
-    dispatch_resume(_stayAliveTimer);
-    dispatch_resume(_timer);
-}
-
-- (void)stopLiveView
-{    
-    dispatch_source_cancel(_timer);
-    dispatch_release(_timer);
-    _timer = NULL;
-    dispatch_source_cancel(_stayAliveTimer);
-    dispatch_release(_stayAliveTimer);
-    _stayAliveTimer = NULL;
-}
-
-- (SyPImageBuffer *)newLiveViewImage
+- (SyPImageBuffer *)newLiveViewImageOnQueue
 {
     SyPCanonEVFImageBuffer *image = [[SyPCanonEVFImageBuffer alloc] init];
     if (image)
@@ -373,13 +394,4 @@ static SyPCanonDSLR *mSession;
     return image;
 }
 
-- (EdsDeviceInfo *)deviceInfo
-{
-    return &_info;
-}
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"%p {%s, %s, %lu, %lu}", _camera, _info.szPortName, _info.szDeviceDescription, _info.deviceSubType, _info.reserved];
-}
 @end
