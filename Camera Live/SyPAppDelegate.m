@@ -234,6 +234,7 @@
                                                     GL_STORAGE_SHARED_APPLE);
                                     glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _buffer);
                                     glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
+                                    [serverImage release];
                                 }
                                 [_server unbindAndPublish];
                             }
@@ -243,7 +244,10 @@
                 else if (error)
                 {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        self.toolbarDelegate.status = @"Camera Error";
+                        if (self.activeCamera != nil)
+                        {
+                            self.toolbarDelegate.status = @"Camera Error";
+                        }
                     }];
                 }
             }];
