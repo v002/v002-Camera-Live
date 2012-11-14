@@ -10,7 +10,7 @@ You can download the app here: [v002 Camera Live](https://github.com/downloads/v
 Changes
 -------
 
-See [the changelog](https://github.com/v002/v002-Camera-Live/wiki/CHANGELOG) for details of changes between released builds.
+See [the change log](https://github.com/v002/v002-Camera-Live/blob/master/CHANGES.md) for details of changes between released builds.
 
 Building From Source
 --------------------
