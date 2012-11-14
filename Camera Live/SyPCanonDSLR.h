@@ -32,6 +32,8 @@
 #import "SyPCamera.h"
 #import "EDSDK.h"
 
+@class SyPCanonEVFImageBuffer;
+
 @interface SyPCanonDSLR : SyPCamera
 {
 @private
@@ -45,5 +47,6 @@
     NSUInteger _timersAlive;
     id _sleepObserver;
     id _wakeObserver;
+    SyPCanonEVFImageBuffer *_nextImage;
 }
 @end

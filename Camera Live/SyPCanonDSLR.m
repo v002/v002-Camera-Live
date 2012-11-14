@@ -411,7 +411,14 @@ static SyPCanonDSLR *mSession;
 
 - (SyPImageBuffer *)newLiveViewImageOnQueueWithError:(NSError **)error
 {
-    SyPCanonEVFImageBuffer *image = [[SyPCanonEVFImageBuffer alloc] init];
+    // Acquire an existing image if we have one ready
+    SyPCanonEVFImageBuffer *image = _nextImage;
+    _nextImage = nil;
+    // Create a new image if we didn't just acquire one
+    if (image == nil)
+    {
+        image = [[SyPCanonEVFImageBuffer alloc] init];
+    }
     if (image)
     {
         EdsStreamRef stream = image.stream;
@@ -426,9 +433,10 @@ static SyPCanonDSLR *mSession;
         {
             if (result != EDS_ERR_OBJECT_NOTREADY)
             {
-                *error = [SyPCanonDSLR errorForEDSError:result];
+                if (error) *error = [SyPCanonDSLR errorForEDSError:result];
             }
-            [image release];
+            // Store the image to re-use it next time
+            _nextImage = image;
             image = nil;
         }
     }
