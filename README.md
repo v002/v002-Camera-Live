@@ -5,7 +5,7 @@ v002 Camera Live provides a Syphon server for a connected camera, allowing it to
 
 Currently the only supported cameras are Canon DSLRs.
 
-You can download the app here: [v002 Camera Live](https://github.com/downloads/v002/v002-Camera-Live/Camera%20Live.zip)
+You can download the app here: [v002 Camera Live](http://d1uo0zjpbs7clj.cloudfront.net/Camera%20Live.zip) build 3
 
 Changes
 -------
