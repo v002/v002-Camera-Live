@@ -7,6 +7,8 @@ Currently the only supported cameras are Canon DSLRs.
 
 You can download the app here: [v002 Camera Live](http://d1uo0zjpbs7clj.cloudfront.net/Camera%20Live.zip) (build 3)
 
+Typical latency of a Canon 7D is 120 ms (between 3 and 4 frames at 30 FPS), which is comparable to the latency of the same camera's HDMI output connected to a capture device.
+
 Changes
 -------
 
