@@ -1,3 +1,7 @@
+## 4
+
+* Fix issue which caused delay under heavy load
+
 ## 3
 
 * Add a basic status display
