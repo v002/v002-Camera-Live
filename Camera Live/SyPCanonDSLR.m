@@ -192,6 +192,8 @@ __attribute__((destructor)) static void finalizer()
     EdsSetCameraStateEventHandler(_camera, kEdsStateEvent_All, NULL, NULL);
     EdsRelease(_camera);
     if (_queue) dispatch_release(_queue);
+    [_pendingImage release];
+    [_pendingError release];
     [super dealloc];
 }
 
@@ -294,35 +296,115 @@ __attribute__((destructor)) static void finalizer()
     [self startLiveViewOnQueue:queue withHandler:handler];
 }
 
+- (void)setFrame:(SyPImageBuffer *)frame
+{
+    [frame retain];
+    bool match;
+    SyPImageBuffer *previous;
+    do {
+        previous = _pendingImage;
+        match = OSAtomicCompareAndSwapPtr(previous, frame, (void **)&_pendingImage);
+    } while (!match);
+    [previous release];
+}
+
+- (SyPImageBuffer *)copyFrame
+{
+    SyPImageBuffer *frame;
+    bool match;
+    do {
+        frame = _pendingImage;
+        match = OSAtomicCompareAndSwapPtr(frame, nil, (void **)&_pendingImage);
+    } while (!match);
+    return frame;
+}
+
+- (void)setError:(NSError *)error
+{
+    [error retain];
+    bool match;
+    NSError *previous;
+    do {
+        previous = _pendingError;
+        match = OSAtomicCompareAndSwapPtr(previous, error, (void **)&_pendingError);
+    } while (!match);
+    [previous release];
+}
+
+- (NSError *)copyError
+{
+    NSError *error;
+    bool match;
+    do {
+        error = _pendingError;
+        match = OSAtomicCompareAndSwapPtr(error, nil, (void **)&_pendingError);
+    } while (!match);
+    return error;
+}
+
 - (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
 {
     dispatch_async([self cameraQueue], ^{
         _timersAlive += 2;
     });
     
+    /*
+     Asynchronously start the camera session and report any error
+     */
     dispatch_async([self cameraQueue], ^{
         NSError *error = [self startSessionOnQueue];
-        if (error) handler(nil, error);
+        if (error)
+        {
+            dispatch_async(queue, ^{
+                handler(nil, error);
+            });
+        }
     });
     
+    /*
+     A data-add source signals to call the handler on the provided queue, allowing us
+     to drop frames if the queue is choked.
+     */
+    dispatch_source_t signal = dispatch_source_create(DISPATCH_SOURCE_TYPE_DATA_ADD, 0, 0, queue);
+    dispatch_source_set_event_handler(signal, ^{
+        SyPImageBuffer *frame = [self copyFrame];
+        NSError *error = [self copyError];
+        if (frame || error)
+        {
+            handler(frame, error);
+        }
+        [frame release];
+        [error release];
+    });
+    
+    /*
+     A timer source initiates regular download from the camera and fires the data-add source
+     */
     _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, [self cameraQueue]);
     dispatch_source_set_event_handler(_timer, ^{
         // TODO: this causes a retain loop until the source is cancelled, we could avoid that
         NSError *error = nil;
         SyPImageBuffer *image = [self newLiveViewImageOnQueueWithError:&error];
-        if (image || error) dispatch_async(queue, ^{
-            handler(image, error);
-        });
-        [image release];
+        if (image || error)
+        {
+            [self setError:error];
+            [self setFrame:image];
+            dispatch_source_merge_data(signal, 1);
+            [image release];
+        }
     });
     dispatch_source_set_cancel_handler(_timer, ^{
         [self endTimerOnQueue];
+        dispatch_source_cancel(signal);
+        dispatch_release(signal);
     });
     dispatch_source_set_timer(_timer, DISPATCH_TIME_NOW, NSEC_PER_SEC / 60, 0);
     
+    /*
+     Another timer source periodically sets live view on the camera, otherwise it stops of its own accord after 30 minutes
+     */
     _stayAliveTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, [self cameraQueue]);
     dispatch_source_set_event_handler(_stayAliveTimer, ^{
-        // Periodically set live view, otherwise it stops of its own accord after 30 minutes
         EdsUInt32 device;
         EdsError err = EdsGetPropertyData(_camera, kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
         if(err == EDS_ERR_OK)
@@ -335,6 +417,11 @@ __attribute__((destructor)) static void finalizer()
         [self endTimerOnQueue];
     });
     dispatch_source_set_timer(_stayAliveTimer, DISPATCH_TIME_NOW, NSEC_PER_SEC * 60 * 28, NSEC_PER_SEC * 30);
+    
+    /*
+     Resume our sources to begin operation
+     */
+    dispatch_resume(signal);
     dispatch_resume(_stayAliveTimer);
     dispatch_resume(_timer);
     

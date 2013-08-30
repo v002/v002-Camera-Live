@@ -48,5 +48,7 @@
     id _sleepObserver;
     id _wakeObserver;
     SyPCanonEVFImageBuffer *_nextImage;
+    SyPImageBuffer *_pendingImage;
+    NSError *_pendingError;
 }
 @end
