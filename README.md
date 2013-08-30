@@ -5,7 +5,7 @@ v002 Camera Live provides a Syphon server for a connected camera, allowing it to
 
 Currently the only supported cameras are Canon DSLRs.
 
-You can download the app here: [v002 Camera Live](http://d1uo0zjpbs7clj.cloudfront.net/Camera%20Live.zip) (build 3)
+You can download the app from the [releases page](https://github.com/v002/v002-Camera-Live/releases).
 
 Typical latency of a Canon 7D is 120 ms (between 3 and 4 frames at 30 FPS), which is comparable to the latency of the same camera's HDMI output connected to a capture device.
 
