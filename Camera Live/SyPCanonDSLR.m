@@ -192,6 +192,7 @@ __attribute__((destructor)) static void finalizer()
     EdsSetCameraStateEventHandler(_camera, kEdsStateEvent_All, NULL, NULL);
     EdsRelease(_camera);
     if (_queue) dispatch_release(_queue);
+    [_nextImage release];
     [_pendingImage release];
     [_pendingError release];
     [super dealloc];
