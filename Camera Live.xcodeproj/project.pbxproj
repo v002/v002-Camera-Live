@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		E225490215F58AF700160073 /* libturbojpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E22548FB15F58AF700160073 /* libturbojpeg.dylib */; };
-		E225490515F58B2700160073 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E22548FB15F58AF700160073 /* libturbojpeg.dylib */; };
+		E225490515F58B2700160073 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E22548FB15F58AF700160073 /* libturbojpeg.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E225490E15F6289A00160073 /* SyPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E225490D15F6289A00160073 /* SyPImage.m */; };
 		E225491215F62C6800160073 /* SyPImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E225491115F62C6800160073 /* SyPImageBuffer.m */; };
 		E225491515F62DD200160073 /* SyPCanonEVFImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E225491415F62DD200160073 /* SyPCanonEVFImageBuffer.m */; };
 		E225493015F751BF00160073 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; };
 		E225494015F7531700160073 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E225493F15F7531700160073 /* OpenGL.framework */; };
-		E225494115F7569900160073 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; };
+		E225494115F7569900160073 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E227AE3C1651D6B60045679D /* SyPToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */; };
 		E227AE3F1652A0020045679D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E227AE3E1652A0020045679D /* IOKit.framework */; };
 		E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */; };
@@ -24,8 +24,8 @@
 		E2B4026315F4F9BE00A2D1C9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */; };
 		E2B4027B15F4FE0400A2D1C9 /* DPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4027415F4FE0400A2D1C9 /* DPP.framework */; };
 		E2B4027C15F4FE0400A2D1C9 /* EDSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; };
-		E2B4028715F502E100A2D1C9 /* DPP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027415F4FE0400A2D1C9 /* DPP.framework */; };
-		E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; };
+		E2B4028715F502E100A2D1C9 /* DPP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027415F4FE0400A2D1C9 /* DPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E2B4029915F50E0D00A2D1C9 /* SyPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */; };
 		E2B4029C15F532F200A2D1C9 /* SyPCanonDSLR.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */; };
 /* End PBXBuildFile section */
@@ -295,7 +295,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SyP;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Tom Butterworth";
 			};
 			buildConfigurationList = E2B4024215F4F9BE00A2D1C9 /* Build configuration list for PBXProject "Camera Live" */;
@@ -374,6 +374,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -387,7 +388,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -409,7 +410,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -431,6 +432,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/libjpeg-turbo/lib\"",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--deep";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
 				WRAPPER_EXTENSION = app;
 			};
@@ -453,6 +456,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/libjpeg-turbo/lib\"",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--deep";
+				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
 				WRAPPER_EXTENSION = app;
 			};
