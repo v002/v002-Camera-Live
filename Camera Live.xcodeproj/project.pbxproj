@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E225490215F58AF700160073 /* libturbojpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E22548FB15F58AF700160073 /* libturbojpeg.dylib */; };
-		E225490515F58B2700160073 /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E22548FB15F58AF700160073 /* libturbojpeg.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E225490E15F6289A00160073 /* SyPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E225490D15F6289A00160073 /* SyPImage.m */; };
 		E225491215F62C6800160073 /* SyPImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E225491115F62C6800160073 /* SyPImageBuffer.m */; };
 		E225491515F62DD200160073 /* SyPCanonEVFImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E225491415F62DD200160073 /* SyPCanonEVFImageBuffer.m */; };
@@ -17,6 +15,8 @@
 		E225494115F7569900160073 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E227AE3C1651D6B60045679D /* SyPToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */; };
 		E227AE3F1652A0020045679D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E227AE3E1652A0020045679D /* IOKit.framework */; };
+		E265A3551CCAC0710080C8C0 /* libturbojpeg.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E265A3541CCABFE00080C8C0 /* libturbojpeg.0.dylib */; };
+		E265A3561CCAC0790080C8C0 /* libturbojpeg.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E265A3541CCABFE00080C8C0 /* libturbojpeg.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */; };
 		E2B4025715F4F9BE00A2D1C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2B4025515F4F9BE00A2D1C9 /* InfoPlist.strings */; };
 		E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025815F4F9BE00A2D1C9 /* main.m */; };
@@ -40,25 +40,13 @@
 				E225494115F7569900160073 /* Syphon.framework in CopyFiles */,
 				E2B4028715F502E100A2D1C9 /* DPP.framework in CopyFiles */,
 				E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */,
-				E225490515F58B2700160073 /* libturbojpeg.dylib in CopyFiles */,
+				E265A3561CCAC0790080C8C0 /* libturbojpeg.0.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E22548F015F58AF700160073 /* jconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jconfig.h; sourceTree = "<group>"; };
-		E22548F115F58AF700160073 /* jerror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jerror.h; sourceTree = "<group>"; };
-		E22548F215F58AF700160073 /* jmorecfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jmorecfg.h; sourceTree = "<group>"; };
-		E22548F315F58AF700160073 /* jpeglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jpeglib.h; sourceTree = "<group>"; };
-		E22548F415F58AF700160073 /* turbojpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = turbojpeg.h; sourceTree = "<group>"; };
-		E22548F615F58AF700160073 /* libjpeg.62.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libjpeg.62.dylib; sourceTree = "<group>"; };
-		E22548F715F58AF700160073 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
-		E22548F815F58AF700160073 /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libjpeg.dylib; sourceTree = "<group>"; };
-		E22548F915F58AF700160073 /* libjpeg.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libjpeg.la; sourceTree = "<group>"; };
-		E22548FA15F58AF700160073 /* libturbojpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libturbojpeg.a; sourceTree = "<group>"; };
-		E22548FB15F58AF700160073 /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libturbojpeg.dylib; sourceTree = "<group>"; };
-		E22548FC15F58AF700160073 /* libturbojpeg.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = libturbojpeg.la; sourceTree = "<group>"; };
 		E225490C15F6289A00160073 /* SyPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPImage.h; sourceTree = "<group>"; };
 		E225490D15F6289A00160073 /* SyPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPImage.m; sourceTree = "<group>"; };
 		E225491015F62C6800160073 /* SyPImageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPImageBuffer.h; sourceTree = "<group>"; };
@@ -71,6 +59,7 @@
 		E227AE3A1651D6B60045679D /* SyPToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPToolbarDelegate.h; sourceTree = "<group>"; };
 		E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPToolbarDelegate.m; sourceTree = "<group>"; };
 		E227AE3E1652A0020045679D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		E265A3541CCABFE00080C8C0 /* libturbojpeg.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libturbojpeg.0.dylib; path = "../../../../../opt/libjpeg-turbo/lib/libturbojpeg.0.dylib"; sourceTree = "<group>"; };
 		E2B4024815F4F9BE00A2D1C9 /* Camera Live.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Camera Live.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E2B4024F15F4F9BE00A2D1C9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -104,49 +93,14 @@
 				E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */,
 				E2B4027B15F4FE0400A2D1C9 /* DPP.framework in Frameworks */,
 				E2B4027C15F4FE0400A2D1C9 /* EDSDK.framework in Frameworks */,
-				E225490215F58AF700160073 /* libturbojpeg.dylib in Frameworks */,
 				E225493015F751BF00160073 /* Syphon.framework in Frameworks */,
+				E265A3551CCAC0710080C8C0 /* libturbojpeg.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E22548EE15F58AF700160073 /* libjpeg-turbo */ = {
-			isa = PBXGroup;
-			children = (
-				E22548EF15F58AF700160073 /* include */,
-				E22548F515F58AF700160073 /* lib */,
-			);
-			path = "libjpeg-turbo";
-			sourceTree = "<group>";
-		};
-		E22548EF15F58AF700160073 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				E22548F015F58AF700160073 /* jconfig.h */,
-				E22548F115F58AF700160073 /* jerror.h */,
-				E22548F215F58AF700160073 /* jmorecfg.h */,
-				E22548F315F58AF700160073 /* jpeglib.h */,
-				E22548F415F58AF700160073 /* turbojpeg.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		E22548F515F58AF700160073 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				E22548F615F58AF700160073 /* libjpeg.62.dylib */,
-				E22548F715F58AF700160073 /* libjpeg.a */,
-				E22548F815F58AF700160073 /* libjpeg.dylib */,
-				E22548F915F58AF700160073 /* libjpeg.la */,
-				E22548FA15F58AF700160073 /* libturbojpeg.a */,
-				E22548FB15F58AF700160073 /* libturbojpeg.dylib */,
-				E22548FC15F58AF700160073 /* libturbojpeg.la */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
 		E225490815F58CFB00160073 /* Syphon */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,8 +123,8 @@
 		E2B4023D15F4F9BE00A2D1C9 = {
 			isa = PBXGroup;
 			children = (
+				E265A3541CCABFE00080C8C0 /* libturbojpeg.0.dylib */,
 				E225490815F58CFB00160073 /* Syphon */,
-				E22548EE15F58AF700160073 /* libjpeg-turbo */,
 				E2B4027115F4FE0400A2D1C9 /* EDSDK */,
 				E2B4025215F4F9BE00A2D1C9 /* Camera Live */,
 				E2B4024B15F4F9BE00A2D1C9 /* Frameworks */,
@@ -278,6 +232,7 @@
 				E2B4024515F4F9BE00A2D1C9 /* Frameworks */,
 				E2B4024615F4F9BE00A2D1C9 /* Resources */,
 				E2B4028615F502D800A2D1C9 /* CopyFiles */,
+				E265A3571CCAC5300080C8C0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -326,6 +281,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E265A3571CCAC5300080C8C0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# change library id\ninstall_name_tool -id @executable_path/../Frameworks/libturbojpeg.0.dylib \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\"/libturbojpeg.0.dylib\n# link against system libgcc_s\ninstall_name_tool -change /opt/local/lib/libgcc/libgcc_s.1.dylib /usr/lib/libgcc_s.1.dylib \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\"/libturbojpeg.0.dylib\n# set link in executable to use bundled library\ninstall_name_tool -change /opt/libjpeg-turbo/lib/libturbojpeg.0.dylib @executable_path/../Frameworks/libturbojpeg.0.dylib \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E2B4024415F4F9BE00A2D1C9 /* Sources */ = {
@@ -426,11 +397,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Camera Live/Camera-Live-Prefix.pch";
+				HEADER_SEARCH_PATHS = "/opt/libjpeg-turbo/include";
 				INFOPLIST_FILE = "Camera Live/Camera-Live-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/libjpeg-turbo/lib\"",
+					"/opt/libjpeg-turbo/lib",
 				);
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
@@ -450,11 +422,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Camera Live/Camera-Live-Prefix.pch";
+				HEADER_SEARCH_PATHS = "/opt/libjpeg-turbo/include";
 				INFOPLIST_FILE = "Camera Live/Camera-Live-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/libjpeg-turbo/lib\"",
+					"/opt/libjpeg-turbo/lib",
 				);
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";

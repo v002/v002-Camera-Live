@@ -32,7 +32,7 @@
 #import <Cocoa/Cocoa.h>
 #import <OpenGL/OpenGL.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
-#import "turbojpeg.h"
+#import <turbojpeg.h>
 #import "Syphon/Syphon.h"
 #import "SyPToolbarDelegate.h"
 
