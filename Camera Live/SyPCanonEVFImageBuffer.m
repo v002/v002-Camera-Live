@@ -63,9 +63,9 @@
 
 - (size_t)length
 {
-    EdsUInt32 length;
+    EdsUInt64 length;
     EdsError result = EdsGetLength(_stream, &length);
-    if (result == EDS_ERR_OK) return length;
+    if (result == EDS_ERR_OK && length <= SIZE_T_MAX) return (size_t)length;
     else return 0;
 }
 
