@@ -1,3 +1,7 @@
+## 5
+
+* Update to latest Canon SDK and libjpeg-turbo, adding support for recent Canon cameras
+
 ## 4
 
 * Fix issue which caused delay under heavy load
