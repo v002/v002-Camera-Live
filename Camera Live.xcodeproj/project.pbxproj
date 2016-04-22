@@ -295,7 +295,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SyP;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Tom Butterworth";
 			};
 			buildConfigurationList = E2B4024215F4F9BE00A2D1C9 /* Build configuration list for PBXProject "Camera Live" */;
