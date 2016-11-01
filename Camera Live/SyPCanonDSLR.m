@@ -258,7 +258,7 @@ __attribute__((destructor)) static void finalizer()
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%p {%s, %s, %lu, %lu}", _camera, _info.szPortName, _info.szDeviceDescription, _info.deviceSubType, _info.reserved];
+    return [NSString stringWithFormat:@"%p {%s, %s, %u, %u}", _camera, _info.szPortName, _info.szDeviceDescription, (unsigned int)_info.deviceSubType, (unsigned int)_info.reserved];
 }
 
 - (void)extendShutdown
