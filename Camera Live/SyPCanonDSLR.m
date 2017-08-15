@@ -4,7 +4,7 @@
  
  Created by Tom Butterworth on 03/09/2012.
  
- Copyright (c) 2012 Tom Butterworth & Anton Marini.
+ Copyright (c) 2012 - 2017 Tom Butterworth & Anton Marini.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
