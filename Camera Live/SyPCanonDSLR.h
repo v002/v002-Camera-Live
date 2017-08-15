@@ -50,5 +50,6 @@
     SyPCanonEVFImageBuffer *_nextImage;
     SyPImageBuffer *_pendingImage;
     NSError *_pendingError;
+    NSTimeInterval _lastSession;
 }
 @end

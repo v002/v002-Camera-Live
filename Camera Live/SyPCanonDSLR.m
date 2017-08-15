@@ -464,7 +464,14 @@ static SyPCanonDSLR *mSession;
         if (OSAtomicCompareAndSwapPtrBarrier(NULL, self, (void **)&mSession))
         {
             _hasSession = YES;
+            // Throttle sessions or the EdsOpenSession call never returns
+            NSTimeInterval since = [NSDate timeIntervalSinceReferenceDate] - _lastSession;
+            if (since < 0.5)
+            {
+                usleep((0.5 - since) * USEC_PER_SEC);
+            }
             EdsError result = EdsOpenSession(_camera);
+            _lastSession = [NSDate timeIntervalSinceReferenceDate];
             error = [SyPCanonDSLR errorForEDSError:result];
         }
         else
