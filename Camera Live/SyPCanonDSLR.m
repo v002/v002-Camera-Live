@@ -136,14 +136,24 @@ static EdsError SyPCanonDSLRHandleStateEvent(EdsStateEvent           inEvent,
 
 + (void)load
 {
-    EdsInitializeSDK();
-    EdsSetCameraAddedHandler(SyPCanonDSLRHandleCameraAdded, NULL);
-    SyPCanonDSLRHandleCameraAdded(NULL);
-}
-
-__attribute__((destructor)) static void finalizer()
-{
-	EdsTerminateSDK();
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        EdsInitializeSDK();
+        EdsSetCameraAddedHandler(SyPCanonDSLRHandleCameraAdded, NULL);
+        SyPCanonDSLRHandleCameraAdded(NULL);
+    }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSApplicationWillTerminateNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        NSMutableSet *remove = [NSMutableSet setWithCapacity:1];
+        for (SyPCamera *camera in [SyPCamera cameras]) {
+            if ([camera isKindOfClass:[SyPCanonDSLR class]])
+            {
+                [remove addObject:camera];
+            }
+        }
+        for (SyPCamera *camera in remove) {
+            [SyPCamera removeCamera:camera];
+        }
+        EdsTerminateSDK();
+    }];
 }
 
 + (NSError *)errorForEDSError:(EdsError)code
