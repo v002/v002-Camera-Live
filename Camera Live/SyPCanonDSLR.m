@@ -72,9 +72,9 @@ static EdsError SyPCanonDSLRHandleCameraAdded(EdsVoid *inContext )
                     if (result == EDS_ERR_OK)
                     {
                         BOOL isNew = YES;
-                        for (SyPCamera *camera in currentCameras)
+                        for (SyPCamera *existing in currentCameras)
                         {
-                            if ([camera isKindOfClass:[SyPCanonDSLR class]] && strcmp(info.szPortName, ((SyPCanonDSLR *)camera).deviceInfo->szPortName) == 0)
+                            if ([existing isKindOfClass:[SyPCanonDSLR class]] && strcmp(info.szPortName, ((SyPCanonDSLR *)existing).deviceInfo->szPortName) == 0)
                             {
                                 isNew = NO;
                             }
@@ -115,10 +115,10 @@ static EdsError SyPCanonDSLRHandleStateEvent(EdsStateEvent           inEvent,
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if (inEvent == kEdsStateEvent_Shutdown)
     {
-        [(SyPCanonDSLR *)inContext retain];
+//        [(SyPCanonDSLR *)inContext retain];
         [SyPCamera removeCamera:(SyPCanonDSLR *)inContext];
 //        NSLog(@"removed: %@", [(SyPCanonDSLR *)inContext description]);
-        [(SyPCanonDSLR *)inContext release];
+//        [(SyPCanonDSLR *)inContext release];
     }
     else if (inEvent == kEdsStateEvent_WillSoonShutDown)
     {
