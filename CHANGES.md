@@ -1,3 +1,8 @@
+## 6
+
+* Update to latest Canon SDK (3.6.1), adding support for more cameras
+* Fix issues which caused the application to hang or crash on macOS Sierra
+
 ## 5
 
 * Update to latest Canon SDK and libjpeg-turbo, adding support for recent Canon cameras

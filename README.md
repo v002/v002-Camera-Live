@@ -9,6 +9,12 @@ You can download the app from the [releases page](https://github.com/v002/v002-C
 
 Typical latency of a Canon 7D is 120 ms (between 3 and 4 frames at 30 FPS), which is comparable to the latency of the same camera's HDMI output connected to a capture device.
 
+Troubleshooting
+---------------
+
+- If your camera model was released after the latest build of Camera Live, it probably isn't supported yet.
+- Make sure your camera's firmware is up to date. Firmware updates are available from Canon in your region. 
+
 Changes
 -------
 
