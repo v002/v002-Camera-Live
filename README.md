@@ -14,6 +14,7 @@ Troubleshooting
 
 - If your camera model was released after the latest build of Camera Live, it probably isn't supported yet.
 - Make sure your camera's firmware is up to date. Firmware updates are available from Canon in your region. 
+- If your camera has a Wi-Fi/NFC mode, disable it before using Camera Live.
 
 Changes
 -------
