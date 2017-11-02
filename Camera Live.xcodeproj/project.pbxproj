@@ -17,6 +17,7 @@
 		E227AE3F1652A0020045679D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E227AE3E1652A0020045679D /* IOKit.framework */; };
 		E265A3551CCAC0710080C8C0 /* libturbojpeg.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E265A3541CCABFE00080C8C0 /* libturbojpeg.0.dylib */; };
 		E265A3561CCAC0790080C8C0 /* libturbojpeg.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E265A3541CCABFE00080C8C0 /* libturbojpeg.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E29174AD1FAB43C500AC9AD3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29174AC1FAB43C500AC9AD3 /* Images.xcassets */; };
 		E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */; };
 		E2B4025715F4F9BE00A2D1C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2B4025515F4F9BE00A2D1C9 /* InfoPlist.strings */; };
 		E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025815F4F9BE00A2D1C9 /* main.m */; };
@@ -60,6 +61,7 @@
 		E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPToolbarDelegate.m; sourceTree = "<group>"; };
 		E227AE3E1652A0020045679D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		E265A3541CCABFE00080C8C0 /* libturbojpeg.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libturbojpeg.0.dylib; path = "../../../../../opt/libjpeg-turbo/lib/libturbojpeg.0.dylib"; sourceTree = "<group>"; };
+		E29174AC1FAB43C500AC9AD3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E2B4024815F4F9BE00A2D1C9 /* Camera Live.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Camera Live.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E2B4024F15F4F9BE00A2D1C9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -177,6 +179,7 @@
 				E225491115F62C6800160073 /* SyPImageBuffer.m */,
 				E225490F15F628A600160073 /* Canon */,
 				E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */,
+				E29174AC1FAB43C500AC9AD3 /* Images.xcassets */,
 				E2B4025315F4F9BE00A2D1C9 /* Supporting Files */,
 			);
 			path = "Camera Live";
@@ -275,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E29174AD1FAB43C500AC9AD3 /* Images.xcassets in Resources */,
 				E2B4025715F4F9BE00A2D1C9 /* InfoPlist.strings in Resources */,
 				E2B4026315F4F9BE00A2D1C9 /* MainMenu.xib in Resources */,
 			);
@@ -413,6 +417,7 @@
 		E2B4026715F4F9BE00A2D1C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -438,6 +443,7 @@
 		E2B4026815F4F9BE00A2D1C9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
