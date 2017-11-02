@@ -288,4 +288,10 @@
         }
     }
 }
+
+- (IBAction)goToWebIssues:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/v002/v002-Camera-Live/issues"]];
+}
+
 @end
