@@ -294,4 +294,36 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/v002/v002-Camera-Live/issues"]];
 }
 
+// swizzle -[ICCameraDevice registerForImageCaptureEventNotifications:] to prevent ImageCapture stuff from crashing on 10.13.
+
+static void newProcess(void* inThisInstancePointer, char* inSelectorName, void* arg1)
+{
+    // do nothing
+}
+
+struct objc_method {
+    char* method_name;
+    char* method_types;
+    void* method_imp;
+};
+
+void patchICCameraDeviceImageCaptureStuff()
+{
+    void* nsClass;
+    struct objc_method* method;
+    nsClass = objc_getClass("ICCameraDevice");
+    if (nsClass)
+    {
+        method = class_getInstanceMethod(nsClass, NSSelectorFromString(@"registerForImageCaptureEventNotifications:"));
+        
+        if (method)
+            method->method_imp = &newProcess;
+    }
+}
+
++(void)load
+{
+    patchICCameraDeviceImageCaptureStuff();
+}
+
 @end
