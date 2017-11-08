@@ -33,6 +33,7 @@
 #import "SyPCamera.h"
 #import "SyPImageBuffer.h"
 #import <OpenGL/CGLMacro.h>
+#import <objc/runtime.h>
 
 #define kActiveCameraIDDefaultsKey @"ActiveCameraID"
 
@@ -292,6 +293,35 @@
 - (IBAction)goToWebIssues:(id)sender
 {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/v002/v002-Camera-Live/issues"]];
+}
+
+// swizzle -[ICCameraDevice registerForImageCaptureEventNotifications:] to prevent ImageCapture stuff from crashing on 10.13.
+// TODO: avoid this if we can
+
+static void newProcess(id instance, SEL selector, void *arg1)
+{
+    // do nothing
+}
+
+void patchICCameraDeviceImageCaptureStuff()
+{
+    Class nsClass;
+    Method method;
+    nsClass = objc_getClass("ICCameraDevice");
+    if (nsClass)
+    {
+        method = class_getInstanceMethod(nsClass, NSSelectorFromString(@"registerForImageCaptureEventNotifications:"));
+        
+        if (method)
+        {
+            method_setImplementation(method, (IMP)newProcess);
+        }
+    }
+}
+
++(void)load
+{
+    patchICCameraDeviceImageCaptureStuff();
 }
 
 @end
