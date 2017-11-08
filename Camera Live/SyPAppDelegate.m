@@ -33,6 +33,7 @@
 #import "SyPCamera.h"
 #import "SyPImageBuffer.h"
 #import <OpenGL/CGLMacro.h>
+#import <objc/runtime.h>
 
 #define kActiveCameraIDDefaultsKey @"ActiveCameraID"
 
@@ -295,29 +296,26 @@
 }
 
 // swizzle -[ICCameraDevice registerForImageCaptureEventNotifications:] to prevent ImageCapture stuff from crashing on 10.13.
+// TODO: avoid this if we can
 
-static void newProcess(void* inThisInstancePointer, char* inSelectorName, void* arg1)
+static void newProcess(id instance, SEL selector, void *arg1)
 {
     // do nothing
 }
 
-struct objc_method {
-    char* method_name;
-    char* method_types;
-    void* method_imp;
-};
-
 void patchICCameraDeviceImageCaptureStuff()
 {
-    void* nsClass;
-    struct objc_method* method;
+    Class nsClass;
+    Method method;
     nsClass = objc_getClass("ICCameraDevice");
     if (nsClass)
     {
         method = class_getInstanceMethod(nsClass, NSSelectorFromString(@"registerForImageCaptureEventNotifications:"));
         
         if (method)
-            method->method_imp = &newProcess;
+        {
+            method_setImplementation(method, (IMP)newProcess);
+        }
     }
 }
 
