@@ -445,7 +445,6 @@
 					"$(inherited)",
 					"/opt/libjpeg-turbo/lib",
 				);
-				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
 				WRAPPER_EXTENSION = app;
@@ -471,7 +470,6 @@
 					"$(inherited)",
 					"/opt/libjpeg-turbo/lib",
 				);
-				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
 				WRAPPER_EXTENSION = app;
