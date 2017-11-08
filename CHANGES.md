@@ -1,3 +1,8 @@
+## 7
+
+* Avoid an issue which caused crashes on MacOS High Sierra when a camera had stored images
+* Add an icon
+
 ## 6
 
 * Update to latest Canon SDK (3.6.1), adding support for more cameras
