@@ -316,6 +316,13 @@ void patchICCameraDeviceImageCaptureStuff()
         {
             method_setImplementation(method, (IMP)newProcess);
         }
+
+        method = class_getInstanceMethod(nsClass, NSSelectorFromString(@"handleContent:"));
+
+        if (method)
+        {
+            method_setImplementation(method, (IMP)newProcess);
+        }
     }
 }
 
