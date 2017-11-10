@@ -1,6 +1,10 @@
+## 8
+
+* Avoid another issue affecting some cameras with stored images on macOS High Sierra
+
 ## 7
 
-* Avoid an issue which caused crashes on MacOS High Sierra when a camera had stored images
+* Avoid an issue which caused crashes on macOS High Sierra when a camera had stored images
 * Add an icon
 
 ## 6
