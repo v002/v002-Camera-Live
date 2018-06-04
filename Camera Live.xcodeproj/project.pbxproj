@@ -23,9 +23,7 @@
 		E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025815F4F9BE00A2D1C9 /* main.m */; };
 		E2B4026015F4F9BE00A2D1C9 /* SyPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */; };
 		E2B4026315F4F9BE00A2D1C9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */; };
-		E2B4027B15F4FE0400A2D1C9 /* DPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4027415F4FE0400A2D1C9 /* DPP.framework */; };
 		E2B4027C15F4FE0400A2D1C9 /* EDSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; };
-		E2B4028715F502E100A2D1C9 /* DPP.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027415F4FE0400A2D1C9 /* DPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E2B4029915F50E0D00A2D1C9 /* SyPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */; };
 		E2B4029C15F532F200A2D1C9 /* SyPCanonDSLR.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */; };
@@ -39,7 +37,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E225494115F7569900160073 /* Syphon.framework in CopyFiles */,
-				E2B4028715F502E100A2D1C9 /* DPP.framework in CopyFiles */,
 				E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */,
 				E265A3561CCAC0790080C8C0 /* libturbojpeg.0.dylib in CopyFiles */,
 			);
@@ -93,7 +90,6 @@
 				E227AE3F1652A0020045679D /* IOKit.framework in Frameworks */,
 				E225494015F7531700160073 /* OpenGL.framework in Frameworks */,
 				E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */,
-				E2B4027B15F4FE0400A2D1C9 /* DPP.framework in Frameworks */,
 				E2B4027C15F4FE0400A2D1C9 /* EDSDK.framework in Frameworks */,
 				E225493015F751BF00160073 /* Syphon.framework in Frameworks */,
 				E265A3551CCAC0710080C8C0 /* libturbojpeg.0.dylib in Frameworks */,
@@ -253,8 +249,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SyP;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Tom Butterworth";
+				TargetAttributes = {
+					E2B4024715F4F9BE00A2D1C9 = {
+						DevelopmentTeam = SWFQ99ZP9J;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = E2B4024215F4F9BE00A2D1C9 /* Build configuration list for PBXProject "Camera Live" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -344,18 +346,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -391,18 +394,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -430,7 +434,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = SWFQ99ZP9J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/EDSDK/Framework\"",
@@ -447,6 +455,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -455,7 +464,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = SWFQ99ZP9J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/EDSDK/Framework\"",
@@ -472,6 +485,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
