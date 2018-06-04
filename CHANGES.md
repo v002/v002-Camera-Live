@@ -1,3 +1,7 @@
+## 9
+
+* Update to latest Canon SDK (3.8.0), adding support for more cameras
+
 ## 8
 
 * Avoid another issue affecting some cameras with stored images on macOS High Sierra
