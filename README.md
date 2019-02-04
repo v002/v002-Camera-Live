@@ -12,6 +12,7 @@ Typical latency of a Canon 7D is 120 ms (between 3 and 4 frames at 30 FPS), whic
 Troubleshooting
 ---------------
 
+- Connect your camera via USB, not HDMI. HDMI capture requires an HDMI capture device.
 - If your camera model was released after the latest build of Camera Live, it probably isn't supported yet.
 - Make sure your camera's firmware is up to date. Firmware updates are available from Canon in your region. 
 - Quit Canon's EOS Utility if you have it open.
