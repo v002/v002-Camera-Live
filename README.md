@@ -17,6 +17,7 @@ Troubleshooting
 - Make sure your camera's firmware is up to date. Firmware updates are available from Canon in your region. 
 - Quit Canon's EOS Utility if you have it open.
 - If your camera has a Wi-Fi/NFC mode, disable it before using Camera Live.
+- The camera sends the image used for Live View - the dimensions will not match the camera's movie recording settings.
 
 Changes
 -------
