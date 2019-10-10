@@ -1,6 +1,14 @@
 v002 Camera Live
 ================
 
+Important
+---------
+
+**v002 Camera Live has multiple issues on macOS Mojave and later. It is still available for download but we cannot provide support. We would welcome any developer work to get it going again.**
+
+Introduction
+------------
+
 v002 Camera Live provides a Syphon server for a connected camera, allowing it to be used as a live video feed.
 
 Currently the only supported cameras are Canon DSLRs, see [CAMERAS.md](https://github.com/v002/v002-Camera-Live/blob/master/CAMERAS.md) for a list.
