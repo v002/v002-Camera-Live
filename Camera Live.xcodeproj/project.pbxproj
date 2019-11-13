@@ -70,7 +70,6 @@
 		E2B4025A15F4F9BE00A2D1C9 /* Camera-Live-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Camera-Live-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E2B4025E15F4F9BE00A2D1C9 /* SyPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SyPAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SyPAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		E2B4027415F4FE0400A2D1C9 /* DPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DPP.framework; sourceTree = "<group>"; };
 		E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EDSDK.framework; sourceTree = "<group>"; };
 		E2B4027715F4FE0400A2D1C9 /* EDSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDK.h; sourceTree = "<group>"; };
 		E2B4027815F4FE0400A2D1C9 /* EDSDKErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDKErrors.h; sourceTree = "<group>"; };
@@ -204,7 +203,6 @@
 		E2B4027315F4FE0400A2D1C9 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				E2B4027415F4FE0400A2D1C9 /* DPP.framework */,
 				E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */,
 			);
 			path = Framework;
