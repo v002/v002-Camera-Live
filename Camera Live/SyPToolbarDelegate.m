@@ -51,18 +51,16 @@
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
 {
-    NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+    NSToolbarItem *item = nil;
     if ([itemIdentifier isEqualToString:@"StatusItemIdentifier"])
     {
+        item = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
         [item setLabel:@"Status"];
         [item setPaletteLabel:@"Status"];
         [item setToolTip:@"Status"];
         [statusBox setCornerRadius:4.0];
         [item setView:statusBox];
-    }
-    else
-    {
-        item = nil;
+        [item setMinSize:NSMakeSize(130.0, 18.0)];
     }
     return item;
 }
