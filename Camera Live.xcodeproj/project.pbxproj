@@ -437,6 +437,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = SWFQ99ZP9J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -453,6 +454,7 @@
 					"$(inherited)",
 					"/opt/libjpeg-turbo/lib",
 				);
+				MARKETING_VERSION = 10;
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -468,6 +470,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = SWFQ99ZP9J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -484,6 +487,7 @@
 					"$(inherited)",
 					"/opt/libjpeg-turbo/lib",
 				);
+				MARKETING_VERSION = 10;
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
 				PROVISIONING_PROFILE_SPECIFIER = "";
