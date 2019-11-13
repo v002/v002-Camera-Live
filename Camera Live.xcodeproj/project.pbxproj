@@ -70,7 +70,6 @@
 		E2B4025A15F4F9BE00A2D1C9 /* Camera-Live-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Camera-Live-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E2B4025E15F4F9BE00A2D1C9 /* SyPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SyPAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SyPAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		E2B4026215F4F9BE00A2D1C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E2B4027415F4FE0400A2D1C9 /* DPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DPP.framework; sourceTree = "<group>"; };
 		E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EDSDK.framework; sourceTree = "<group>"; };
 		E2B4027715F4FE0400A2D1C9 /* EDSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDK.h; sourceTree = "<group>"; };
@@ -80,6 +79,7 @@
 		E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SyPCamera.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E2B4029A15F532F200A2D1C9 /* SyPCanonDSLR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SyPCanonDSLR.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SyPCanonDSLR.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		E2EA013C237C15F20095CBF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,7 +249,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SyP;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Tom Butterworth";
 				TargetAttributes = {
 					E2B4024715F4F9BE00A2D1C9 = {
@@ -260,10 +260,11 @@
 			};
 			buildConfigurationList = E2B4024215F4F9BE00A2D1C9 /* Build configuration list for PBXProject "Camera Live" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = E2B4023D15F4F9BE00A2D1C9;
 			productRefGroup = E2B4024915F4F9BE00A2D1C9 /* Products */;
@@ -334,7 +335,7 @@
 		E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E2B4026215F4F9BE00A2D1C9 /* en */,
+				E2EA013C237C15F20095CBF1 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -439,6 +440,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = SWFQ99ZP9J;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/EDSDK/Framework\"",
@@ -469,6 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = SWFQ99ZP9J;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/EDSDK/Framework\"",
