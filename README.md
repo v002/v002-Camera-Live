@@ -37,11 +37,6 @@ Building From Source
 
 To build the project yourself, you must acquire your own copies of the necessary libraries:
 
- - The Canon EDSDK is available from Canon in your region.
- - libjpeg-turbo is available from http://libjpeg-turbo.virtualgl.org
- - Syphon is available from http://syphon.v002.info
-
-Code-signing the Canon SDK when you export an Archive build throws up a couple of challenges:
-
- - You will have to add a ````CFBundleSupportedPlatforms```` entry to the Info.plist of some of the Canon bundles within EDSDK.framework (try it and you will see error messages for each affected bundle)
- - You will have to relocate anything that isn't loadable code from EDSDK.framework/Versions/A/ and edit the EDSDK binary to update the new location if it is referenced. I moved ````Versions/Current/DeviceInfo.plist```` to ````Versions/A/Resources/ceInfo.plist```` (to avoid changing the length of strings in the EDSDK binary).
+ - The Canon EDSDK is available from Canon in your region. Place the Framework and Header folders from the SDK in the EDSDK folder alongside this file.
+ - libjpeg-turbo is available from http://libjpeg-turbo.virtualgl.org. Install using the libjpeg-turbo installer.
+ - Syphon is available from http://syphon.v002.info. Place Syphon.framework in the Syphon folder alongside this file.
