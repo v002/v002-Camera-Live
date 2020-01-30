@@ -1,10 +1,6 @@
 v002 Camera Live
 ================
 
-Important
----------
-
-**v002 Camera Live has multiple issues on macOS Mojave and later. It is still available for download but we cannot provide support. We would welcome any developer work to get it going again.**
 
 Introduction
 ------------
