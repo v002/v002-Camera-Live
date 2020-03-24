@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E209DE5724294FD000BBE6F7 /* SyPUSBHotplugWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E209DE5624294FD000BBE6F7 /* SyPUSBHotplugWatcher.m */; };
 		E225490E15F6289A00160073 /* SyPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E225490D15F6289A00160073 /* SyPImage.m */; };
 		E225491215F62C6800160073 /* SyPImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E225491115F62C6800160073 /* SyPImageBuffer.m */; };
-		E225491515F62DD200160073 /* SyPCanonEVFImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E225491415F62DD200160073 /* SyPCanonEVFImageBuffer.m */; };
 		E225493015F751BF00160073 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; };
 		E225494015F7531700160073 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E225493F15F7531700160073 /* OpenGL.framework */; };
 		E225494115F7569900160073 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E225492F15F751BF00160073 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -17,40 +17,75 @@
 		E227AE3F1652A0020045679D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E227AE3E1652A0020045679D /* IOKit.framework */; };
 		E24045E323E31489004C14E9 /* libturbojpeg.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E24045E223E31489004C14E9 /* libturbojpeg.0.dylib */; };
 		E24045E423E3148F004C14E9 /* libturbojpeg.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E24045E223E31489004C14E9 /* libturbojpeg.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E2674921242A76E900386636 /* libltdl.7.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2674920242A76E900386636 /* libltdl.7.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E267498A242AA09300386636 /* ptp2.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2674963242AA06E00386636 /* ptp2.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E267498C242AA0D700386636 /* ptpip.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2674928242AA05500386636 /* ptpip.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E267498E242AA13E00386636 /* canon.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2674955242AA06E00386636 /* canon.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E2674991242AA15500386636 /* usb1.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2674927242AA05500386636 /* usb1.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E28384BB2427B305006F26E3 /* SyPGPhotoCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = E28384BA2427B305006F26E3 /* SyPGPhotoCamera.m */; };
+		E28384C72427B713006F26E3 /* libusb-1.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E28384C52427B713006F26E3 /* libusb-1.0.0.dylib */; };
+		E28384C82427B713006F26E3 /* libusb-1.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E28384C52427B713006F26E3 /* libusb-1.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E28384C92427B713006F26E3 /* libgphoto2.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E28384C62427B713006F26E3 /* libgphoto2.6.dylib */; };
+		E28384CA2427B713006F26E3 /* libgphoto2.6.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E28384C62427B713006F26E3 /* libgphoto2.6.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E28384CC2427DD4B006F26E3 /* libgphoto2_port.12.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E28384CB2427DD4B006F26E3 /* libgphoto2_port.12.dylib */; };
+		E28384CD2427DD4B006F26E3 /* libgphoto2_port.12.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E28384CB2427DD4B006F26E3 /* libgphoto2_port.12.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E28384D02428109E006F26E3 /* SyPGPhotoImageBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E28384CF2428109E006F26E3 /* SyPGPhotoImageBuffer.m */; };
 		E29174AD1FAB43C500AC9AD3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29174AC1FAB43C500AC9AD3 /* Images.xcassets */; };
 		E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */; };
 		E2B4025715F4F9BE00A2D1C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E2B4025515F4F9BE00A2D1C9 /* InfoPlist.strings */; };
 		E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025815F4F9BE00A2D1C9 /* main.m */; };
 		E2B4026015F4F9BE00A2D1C9 /* SyPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */; };
 		E2B4026315F4F9BE00A2D1C9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */; };
-		E2B4027C15F4FE0400A2D1C9 /* EDSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; };
-		E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E2B4029915F50E0D00A2D1C9 /* SyPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */; };
-		E2B4029C15F532F200A2D1C9 /* SyPCanonDSLR.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		E2674922242A9FC600386636 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Cameras;
+			dstSubfolderSpec = 13;
+			files = (
+				E267498E242AA13E00386636 /* canon.so in CopyFiles */,
+				E267498A242AA09300386636 /* ptp2.so in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E267498B242AA0A600386636 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Ports;
+			dstSubfolderSpec = 13;
+			files = (
+				E2674991242AA15500386636 /* usb1.so in CopyFiles */,
+				E267498C242AA0D700386636 /* ptpip.so in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E2B4028615F502D800A2D1C9 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				E2674921242A76E900386636 /* libltdl.7.dylib in CopyFiles */,
 				E225494115F7569900160073 /* Syphon.framework in CopyFiles */,
 				E24045E423E3148F004C14E9 /* libturbojpeg.0.dylib in CopyFiles */,
-				E2B4028815F502E100A2D1C9 /* EDSDK.framework in CopyFiles */,
+				E28384CD2427DD4B006F26E3 /* libgphoto2_port.12.dylib in CopyFiles */,
+				E28384CA2427B713006F26E3 /* libgphoto2.6.dylib in CopyFiles */,
+				E28384C82427B713006F26E3 /* libusb-1.0.0.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E209DE5524294FD000BBE6F7 /* SyPUSBHotplugWatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPUSBHotplugWatcher.h; sourceTree = "<group>"; };
+		E209DE5624294FD000BBE6F7 /* SyPUSBHotplugWatcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyPUSBHotplugWatcher.m; sourceTree = "<group>"; };
 		E225490C15F6289A00160073 /* SyPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPImage.h; sourceTree = "<group>"; };
 		E225490D15F6289A00160073 /* SyPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPImage.m; sourceTree = "<group>"; };
 		E225491015F62C6800160073 /* SyPImageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPImageBuffer.h; sourceTree = "<group>"; };
 		E225491115F62C6800160073 /* SyPImageBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPImageBuffer.m; sourceTree = "<group>"; };
-		E225491315F62DD200160073 /* SyPCanonEVFImageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SyPCanonEVFImageBuffer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		E225491415F62DD200160073 /* SyPCanonEVFImageBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SyPCanonEVFImageBuffer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E225491E15F642D100160073 /* SyPImageFormats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPImageFormats.h; sourceTree = "<group>"; };
 		E225492F15F751BF00160073 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		E225493F15F7531700160073 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -58,6 +93,59 @@
 		E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPToolbarDelegate.m; sourceTree = "<group>"; };
 		E227AE3E1652A0020045679D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		E24045E223E31489004C14E9 /* libturbojpeg.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libturbojpeg.0.dylib; sourceTree = "<group>"; };
+		E2674920242A76E900386636 /* libltdl.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libltdl.7.dylib; path = libraries/lib/libltdl.7.dylib; sourceTree = "<group>"; };
+		E2674926242AA05500386636 /* usbscsi.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = usbscsi.la; sourceTree = "<group>"; };
+		E2674927242AA05500386636 /* usb1.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = usb1.so; sourceTree = "<group>"; };
+		E2674928242AA05500386636 /* ptpip.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = ptpip.so; sourceTree = "<group>"; };
+		E267492A242AA05500386636 /* usbscsi.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = usbscsi.so; sourceTree = "<group>"; };
+		E267492C242AA05500386636 /* ptpip.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ptpip.la; sourceTree = "<group>"; };
+		E267492D242AA05500386636 /* usb1.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = usb1.la; sourceTree = "<group>"; };
+		E267492F242AA05500386636 /* usbdiskdirect.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = usbdiskdirect.so; sourceTree = "<group>"; };
+		E2674931242AA05500386636 /* usbdiskdirect.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = usbdiskdirect.la; sourceTree = "<group>"; };
+		E2674940242AA06E00386636 /* directory.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = directory.la; sourceTree = "<group>"; };
+		E2674941242AA06E00386636 /* topfield.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = topfield.so; sourceTree = "<group>"; };
+		E2674942242AA06E00386636 /* jl2005a.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jl2005a.la; sourceTree = "<group>"; };
+		E2674943242AA06E00386636 /* dimagev.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dimagev.la; sourceTree = "<group>"; };
+		E2674944242AA06E00386636 /* kodak_dc240.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = kodak_dc240.so; sourceTree = "<group>"; };
+		E2674945242AA06E00386636 /* ax203.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ax203.la; sourceTree = "<group>"; };
+		E2674946242AA06E00386636 /* pentax.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = pentax.so; sourceTree = "<group>"; };
+		E2674947242AA06E00386636 /* tp6801.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = tp6801.so; sourceTree = "<group>"; };
+		E2674948242AA06E00386636 /* sonix.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sonix.la; sourceTree = "<group>"; };
+		E2674949242AA06E00386636 /* sq905.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = sq905.so; sourceTree = "<group>"; };
+		E267494A242AA06E00386636 /* kodak_dc240.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = kodak_dc240.la; sourceTree = "<group>"; };
+		E267494B242AA06E00386636 /* dimagev.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = dimagev.so; sourceTree = "<group>"; };
+		E267494C242AA06E00386636 /* jl2005a.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = jl2005a.so; sourceTree = "<group>"; };
+		E267494D242AA06E00386636 /* tp6801.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tp6801.la; sourceTree = "<group>"; };
+		E267494E242AA06E00386636 /* pentax.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pentax.la; sourceTree = "<group>"; };
+		E267494F242AA06E00386636 /* ax203.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = ax203.so; sourceTree = "<group>"; };
+		E2674950242AA06E00386636 /* topfield.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = topfield.la; sourceTree = "<group>"; };
+		E2674951242AA06E00386636 /* directory.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = directory.so; sourceTree = "<group>"; };
+		E2674952242AA06E00386636 /* sq905.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sq905.la; sourceTree = "<group>"; };
+		E2674953242AA06E00386636 /* sonix.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = sonix.so; sourceTree = "<group>"; };
+		E2674954242AA06E00386636 /* st2205.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = st2205.so; sourceTree = "<group>"; };
+		E2674955242AA06E00386636 /* canon.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = canon.so; sourceTree = "<group>"; };
+		E2674956242AA06E00386636 /* jl2005c.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = jl2005c.so; sourceTree = "<group>"; };
+		E2674957242AA06E00386636 /* sierra.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = sierra.so; sourceTree = "<group>"; };
+		E2674958242AA06E00386636 /* mars.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = mars.so; sourceTree = "<group>"; };
+		E2674959242AA06E00386636 /* ricoh_g3.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = ricoh_g3.so; sourceTree = "<group>"; };
+		E267495A242AA06E00386636 /* ptp2.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ptp2.la; sourceTree = "<group>"; };
+		E267495B242AA06E00386636 /* digigr8.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = digigr8.la; sourceTree = "<group>"; };
+		E267495C242AA06E00386636 /* sierra.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sierra.la; sourceTree = "<group>"; };
+		E267495D242AA06E00386636 /* jl2005c.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jl2005c.la; sourceTree = "<group>"; };
+		E267495E242AA06E00386636 /* mars.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mars.la; sourceTree = "<group>"; };
+		E267495F242AA06E00386636 /* ricoh_g3.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ricoh_g3.la; sourceTree = "<group>"; };
+		E2674960242AA06E00386636 /* canon.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = canon.la; sourceTree = "<group>"; };
+		E2674961242AA06E00386636 /* st2205.la */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = st2205.la; sourceTree = "<group>"; };
+		E2674962242AA06E00386636 /* digigr8.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = digigr8.so; sourceTree = "<group>"; };
+		E2674963242AA06E00386636 /* ptp2.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = ptp2.so; sourceTree = "<group>"; };
+		E2674964242AA06E00386636 /* print-camera-list */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "print-camera-list"; sourceTree = "<group>"; };
+		E28384B92427B305006F26E3 /* SyPGPhotoCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPGPhotoCamera.h; sourceTree = "<group>"; };
+		E28384BA2427B305006F26E3 /* SyPGPhotoCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyPGPhotoCamera.m; sourceTree = "<group>"; };
+		E28384C52427B713006F26E3 /* libusb-1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libusb-1.0.0.dylib"; path = "libraries/lib/libusb-1.0.0.dylib"; sourceTree = "<group>"; };
+		E28384C62427B713006F26E3 /* libgphoto2.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgphoto2.6.dylib; path = libraries/lib/libgphoto2.6.dylib; sourceTree = "<group>"; };
+		E28384CB2427DD4B006F26E3 /* libgphoto2_port.12.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgphoto2_port.12.dylib; path = libraries/lib/libgphoto2_port.12.dylib; sourceTree = "<group>"; };
+		E28384CE2428109E006F26E3 /* SyPGPhotoImageBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPGPhotoImageBuffer.h; sourceTree = "<group>"; };
+		E28384CF2428109E006F26E3 /* SyPGPhotoImageBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyPGPhotoImageBuffer.m; sourceTree = "<group>"; };
 		E29174AC1FAB43C500AC9AD3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E2B4024815F4F9BE00A2D1C9 /* Camera Live.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Camera Live.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -70,14 +158,8 @@
 		E2B4025A15F4F9BE00A2D1C9 /* Camera-Live-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Camera-Live-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E2B4025E15F4F9BE00A2D1C9 /* SyPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SyPAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SyPAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EDSDK.framework; sourceTree = "<group>"; };
-		E2B4027715F4FE0400A2D1C9 /* EDSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDK.h; sourceTree = "<group>"; };
-		E2B4027815F4FE0400A2D1C9 /* EDSDKErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDKErrors.h; sourceTree = "<group>"; };
-		E2B4027915F4FE0400A2D1C9 /* EDSDKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSDKTypes.h; sourceTree = "<group>"; };
 		E2B4029715F50E0D00A2D1C9 /* SyPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SyPCamera.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E2B4029815F50E0D00A2D1C9 /* SyPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SyPCamera.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		E2B4029A15F532F200A2D1C9 /* SyPCanonDSLR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SyPCanonDSLR.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SyPCanonDSLR.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E2EA013C237C15F20095CBF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,9 +170,11 @@
 			files = (
 				E227AE3F1652A0020045679D /* IOKit.framework in Frameworks */,
 				E24045E323E31489004C14E9 /* libturbojpeg.0.dylib in Frameworks */,
+				E28384C92427B713006F26E3 /* libgphoto2.6.dylib in Frameworks */,
 				E225494015F7531700160073 /* OpenGL.framework in Frameworks */,
+				E28384C72427B713006F26E3 /* libusb-1.0.0.dylib in Frameworks */,
 				E2B4024D15F4F9BE00A2D1C9 /* Cocoa.framework in Frameworks */,
-				E2B4027C15F4FE0400A2D1C9 /* EDSDK.framework in Frameworks */,
+				E28384CC2427DD4B006F26E3 /* libgphoto2_port.12.dylib in Frameworks */,
 				E225493015F751BF00160073 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,23 +190,112 @@
 			path = Syphon;
 			sourceTree = "<group>";
 		};
-		E225490F15F628A600160073 /* Canon */ = {
+		E2674923242AA02D00386636 /* Loaded Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				E2B4029A15F532F200A2D1C9 /* SyPCanonDSLR.h */,
-				E2B4029B15F532F200A2D1C9 /* SyPCanonDSLR.m */,
-				E225491315F62DD200160073 /* SyPCanonEVFImageBuffer.h */,
-				E225491415F62DD200160073 /* SyPCanonEVFImageBuffer.m */,
+				E267493E242AA06E00386636 /* libgphoto2 */,
+				E2674924242AA05500386636 /* libgphoto2_port */,
 			);
-			name = Canon;
+			name = "Loaded Libraries";
+			sourceTree = "<group>";
+		};
+		E2674924242AA05500386636 /* libgphoto2_port */ = {
+			isa = PBXGroup;
+			children = (
+				E2674925242AA05500386636 /* 0.12.0 */,
+			);
+			name = libgphoto2_port;
+			path = libraries/lib/libgphoto2_port;
+			sourceTree = SOURCE_ROOT;
+		};
+		E2674925242AA05500386636 /* 0.12.0 */ = {
+			isa = PBXGroup;
+			children = (
+				E2674926242AA05500386636 /* usbscsi.la */,
+				E2674927242AA05500386636 /* usb1.so */,
+				E2674928242AA05500386636 /* ptpip.so */,
+				E267492A242AA05500386636 /* usbscsi.so */,
+				E267492C242AA05500386636 /* ptpip.la */,
+				E267492D242AA05500386636 /* usb1.la */,
+				E267492F242AA05500386636 /* usbdiskdirect.so */,
+				E2674931242AA05500386636 /* usbdiskdirect.la */,
+			);
+			path = 0.12.0;
+			sourceTree = "<group>";
+		};
+		E267493E242AA06E00386636 /* libgphoto2 */ = {
+			isa = PBXGroup;
+			children = (
+				E267493F242AA06E00386636 /* 2.5.24 */,
+				E2674964242AA06E00386636 /* print-camera-list */,
+			);
+			name = libgphoto2;
+			path = libraries/lib/libgphoto2;
+			sourceTree = SOURCE_ROOT;
+		};
+		E267493F242AA06E00386636 /* 2.5.24 */ = {
+			isa = PBXGroup;
+			children = (
+				E2674940242AA06E00386636 /* directory.la */,
+				E2674941242AA06E00386636 /* topfield.so */,
+				E2674942242AA06E00386636 /* jl2005a.la */,
+				E2674943242AA06E00386636 /* dimagev.la */,
+				E2674944242AA06E00386636 /* kodak_dc240.so */,
+				E2674945242AA06E00386636 /* ax203.la */,
+				E2674946242AA06E00386636 /* pentax.so */,
+				E2674947242AA06E00386636 /* tp6801.so */,
+				E2674948242AA06E00386636 /* sonix.la */,
+				E2674949242AA06E00386636 /* sq905.so */,
+				E267494A242AA06E00386636 /* kodak_dc240.la */,
+				E267494B242AA06E00386636 /* dimagev.so */,
+				E267494C242AA06E00386636 /* jl2005a.so */,
+				E267494D242AA06E00386636 /* tp6801.la */,
+				E267494E242AA06E00386636 /* pentax.la */,
+				E267494F242AA06E00386636 /* ax203.so */,
+				E2674950242AA06E00386636 /* topfield.la */,
+				E2674951242AA06E00386636 /* directory.so */,
+				E2674952242AA06E00386636 /* sq905.la */,
+				E2674953242AA06E00386636 /* sonix.so */,
+				E2674954242AA06E00386636 /* st2205.so */,
+				E2674955242AA06E00386636 /* canon.so */,
+				E2674956242AA06E00386636 /* jl2005c.so */,
+				E2674957242AA06E00386636 /* sierra.so */,
+				E2674958242AA06E00386636 /* mars.so */,
+				E2674959242AA06E00386636 /* ricoh_g3.so */,
+				E267495A242AA06E00386636 /* ptp2.la */,
+				E267495B242AA06E00386636 /* digigr8.la */,
+				E267495C242AA06E00386636 /* sierra.la */,
+				E267495D242AA06E00386636 /* jl2005c.la */,
+				E267495E242AA06E00386636 /* mars.la */,
+				E267495F242AA06E00386636 /* ricoh_g3.la */,
+				E2674960242AA06E00386636 /* canon.la */,
+				E2674961242AA06E00386636 /* st2205.la */,
+				E2674962242AA06E00386636 /* digigr8.so */,
+				E2674963242AA06E00386636 /* ptp2.so */,
+			);
+			path = 2.5.24;
+			sourceTree = "<group>";
+		};
+		E28384992427AB59006F26E3 /* libgphoto2 */ = {
+			isa = PBXGroup;
+			children = (
+				E2674923242AA02D00386636 /* Loaded Libraries */,
+				E28384B92427B305006F26E3 /* SyPGPhotoCamera.h */,
+				E28384BA2427B305006F26E3 /* SyPGPhotoCamera.m */,
+				E28384CE2428109E006F26E3 /* SyPGPhotoImageBuffer.h */,
+				E28384CF2428109E006F26E3 /* SyPGPhotoImageBuffer.m */,
+				E209DE5524294FD000BBE6F7 /* SyPUSBHotplugWatcher.h */,
+				E209DE5624294FD000BBE6F7 /* SyPUSBHotplugWatcher.m */,
+			);
+			name = libgphoto2;
 			sourceTree = "<group>";
 		};
 		E2B4023D15F4F9BE00A2D1C9 = {
 			isa = PBXGroup;
 			children = (
+				E2674920242A76E900386636 /* libltdl.7.dylib */,
 				E24045E223E31489004C14E9 /* libturbojpeg.0.dylib */,
 				E225490815F58CFB00160073 /* Syphon */,
-				E2B4027115F4FE0400A2D1C9 /* EDSDK */,
 				E2B4025215F4F9BE00A2D1C9 /* Camera Live */,
 				E2B4024B15F4F9BE00A2D1C9 /* Frameworks */,
 				E2B4024915F4F9BE00A2D1C9 /* Products */,
@@ -140,6 +313,9 @@
 		E2B4024B15F4F9BE00A2D1C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E28384CB2427DD4B006F26E3 /* libgphoto2_port.12.dylib */,
+				E28384C62427B713006F26E3 /* libgphoto2.6.dylib */,
+				E28384C52427B713006F26E3 /* libusb-1.0.0.dylib */,
 				E227AE3E1652A0020045679D /* IOKit.framework */,
 				E2B4024C15F4F9BE00A2D1C9 /* Cocoa.framework */,
 				E225493F15F7531700160073 /* OpenGL.framework */,
@@ -161,6 +337,7 @@
 		E2B4025215F4F9BE00A2D1C9 /* Camera Live */ = {
 			isa = PBXGroup;
 			children = (
+				E28384992427AB59006F26E3 /* libgphoto2 */,
 				E2B4025E15F4F9BE00A2D1C9 /* SyPAppDelegate.h */,
 				E2B4025F15F4F9BE00A2D1C9 /* SyPAppDelegate.m */,
 				E227AE3A1651D6B60045679D /* SyPToolbarDelegate.h */,
@@ -172,7 +349,6 @@
 				E225490D15F6289A00160073 /* SyPImage.m */,
 				E225491015F62C6800160073 /* SyPImageBuffer.h */,
 				E225491115F62C6800160073 /* SyPImageBuffer.m */,
-				E225490F15F628A600160073 /* Canon */,
 				E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */,
 				E29174AC1FAB43C500AC9AD3 /* Images.xcassets */,
 				E2B4025315F4F9BE00A2D1C9 /* Supporting Files */,
@@ -191,33 +367,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E2B4027115F4FE0400A2D1C9 /* EDSDK */ = {
-			isa = PBXGroup;
-			children = (
-				E2B4027315F4FE0400A2D1C9 /* Framework */,
-				E2B4027615F4FE0400A2D1C9 /* Header */,
-			);
-			path = EDSDK;
-			sourceTree = "<group>";
-		};
-		E2B4027315F4FE0400A2D1C9 /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				E2B4027515F4FE0400A2D1C9 /* EDSDK.framework */,
-			);
-			path = Framework;
-			sourceTree = "<group>";
-		};
-		E2B4027615F4FE0400A2D1C9 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				E2B4027715F4FE0400A2D1C9 /* EDSDK.h */,
-				E2B4027815F4FE0400A2D1C9 /* EDSDKErrors.h */,
-				E2B4027915F4FE0400A2D1C9 /* EDSDKTypes.h */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -229,6 +378,8 @@
 				E2B4024515F4F9BE00A2D1C9 /* Frameworks */,
 				E2B4024615F4F9BE00A2D1C9 /* Resources */,
 				E2B4028615F502D800A2D1C9 /* CopyFiles */,
+				E2674922242A9FC600386636 /* CopyFiles */,
+				E267498B242AA0A600386636 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -294,11 +445,12 @@
 				E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */,
 				E2B4026015F4F9BE00A2D1C9 /* SyPAppDelegate.m in Sources */,
 				E2B4029915F50E0D00A2D1C9 /* SyPCamera.m in Sources */,
-				E2B4029C15F532F200A2D1C9 /* SyPCanonDSLR.m in Sources */,
+				E28384D02428109E006F26E3 /* SyPGPhotoImageBuffer.m in Sources */,
 				E225490E15F6289A00160073 /* SyPImage.m in Sources */,
 				E225491215F62C6800160073 /* SyPImageBuffer.m in Sources */,
-				E225491515F62DD200160073 /* SyPCanonEVFImageBuffer.m in Sources */,
+				E28384BB2427B305006F26E3 /* SyPGPhotoCamera.m in Sources */,
 				E227AE3C1651D6B60045679D /* SyPToolbarDelegate.m in Sources */,
+				E209DE5724294FD000BBE6F7 /* SyPUSBHotplugWatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,7 +572,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = SWFQ99ZP9J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -436,11 +588,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/libraries/lib",
 				);
-				MARKETING_VERSION = 11;
+				MARKETING_VERSION = 12;
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/libraries/include";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -453,7 +607,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = SWFQ99ZP9J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -469,11 +623,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/libraries/lib",
 				);
-				MARKETING_VERSION = 11;
+				MARKETING_VERSION = 12;
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/libraries/include";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
