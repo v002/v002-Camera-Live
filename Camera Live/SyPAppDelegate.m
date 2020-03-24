@@ -209,7 +209,7 @@
                         _started = YES;
                     }
                     int width, height;
-                    int result = tjDecompressHeader(_decompressor, image.baseAddress, image.length, &width, &height);
+                    int result = tjDecompressHeader(_decompressor, (unsigned char *)image.baseAddress, image.length, &width, &height);
                     if (result == 0)
                     {
                         size_t wanted_bpr = TJPAD(tjPixelSize[TJPF_BGRA] * width);

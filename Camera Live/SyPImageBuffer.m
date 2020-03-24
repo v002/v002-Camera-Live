@@ -32,6 +32,6 @@
 #import "SyPImageBuffer.h"
 
 @implementation SyPImageBuffer
-- (void *)baseAddress { return NULL; }
+- (const void *)baseAddress { return NULL; }
 - (size_t)length { return 0; }
 @end

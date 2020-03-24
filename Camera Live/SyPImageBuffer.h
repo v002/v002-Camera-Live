@@ -32,6 +32,6 @@
 #import "SyPImage.h"
 
 @interface SyPImageBuffer : SyPImage
-@property (readonly) void *baseAddress;
+@property (readonly) const void *baseAddress;
 @property (readonly) size_t length;
 @end

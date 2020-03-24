@@ -53,7 +53,7 @@
     [super dealloc];
 }
 
-- (void *)baseAddress
+- (const void *)baseAddress
 {
     EdsVoid *pointer;
     EdsError result = EdsGetPointer(_stream, &pointer);
