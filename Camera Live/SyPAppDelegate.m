@@ -31,6 +31,7 @@
 
 #import "SyPAppDelegate.h"
 #import "SyPCamera.h"
+#import "SyPCanonDSLR.h"
 #import "SyPImageBuffer.h"
 #import <OpenGL/CGLMacro.h>
 #import <objc/runtime.h>
@@ -90,14 +91,13 @@
                                                   usingBlock:^(NSNotification *note) {
                                                       [self removeCamera:[note object]];
                                                   }];
-    for (SyPCamera *camera in [SyPCamera cameras]) {
-        [self addCamera:camera];
-    }
+    [SyPCanonDSLR startDriver];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
     [self.camerasArrayController removeObjects:[self.camerasArrayController arrangedObjects]];
+    [SyPCanonDSLR endDriver];
 }
 
 - (NSArray *)selectedCameras

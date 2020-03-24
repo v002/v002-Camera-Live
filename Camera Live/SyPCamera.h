@@ -39,11 +39,15 @@ extern NSString * const SyPCameraRemovedNotification;
 typedef void(^SyPCameraImageHandler)(SyPImageBuffer *image, NSError *error);
 
 @interface SyPCamera : NSObject
+@property (class, readonly) NSString *driverName;
++ (void)startDriver;
++ (void)endDriver;
 + (NSSet *)cameras;
 @property (readonly) NSString *name;
 @property (readonly) NSString *identifier; // Unique per device and persistent
 - (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler;
 - (void)stopLiveView;
+@property (readonly) BOOL isInLiveView;
 @end
 
 @interface SyPCamera (Subclassing)

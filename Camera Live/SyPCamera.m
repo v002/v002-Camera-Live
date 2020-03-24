@@ -34,7 +34,15 @@
 NSString * const SyPCameraAddedNotification = @"SyPCameraAddedNotification";
 NSString * const SyPCameraRemovedNotification = @"SyPCameraRemovedNotification";
 
-@implementation SyPCamera
+@interface SyPCamera (Private)
+@property (readwrite) BOOL isInLiveView;
+@end
+
+@implementation SyPCamera {
+    BOOL _isInLiveView;
+}
+
+@dynamic driverName; // subclasses provide it
 
 + (NSMutableSet *)mutableCameras
 {
@@ -68,13 +76,35 @@ NSString * const SyPCameraRemovedNotification = @"SyPCameraRemovedNotification";
 {
     NSSet *cameras;
     @synchronized(self) {
-        cameras = [self mutableCameras];
+        cameras = [[[self mutableCameras] copy] autorelease];
     }
     return cameras;
 }
 
++ (void)startDriver
+{
+
+}
+
++ (void)endDriver
+{
+
+}
+
 - (NSString *)name { return @""; }
 - (NSString *)identifier { return @""; }
-- (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler { }
-- (void)stopLiveView { }
+- (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
+{
+    _isInLiveView = YES;
+}
+
+- (void)stopLiveView
+{
+    _isInLiveView = NO;
+}
+
+- (BOOL)isInLiveView
+{
+    return _isInLiveView;
+}
 @end
