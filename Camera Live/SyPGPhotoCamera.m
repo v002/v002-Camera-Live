@@ -213,6 +213,161 @@ out:
     return ret;
 }
 
+static int
+describe_widget(CameraWidget *widget, int indent, NSMutableString *destination)
+{
+    NSString *spaces = @" ";
+    while (spaces.length < indent * 2)
+    {
+        spaces = [spaces stringByAppendingString:@" "];
+    }
+    int result = GP_OK;
+    const char *name;
+    const char *info;
+    const char *label;
+    const char *typestring;
+    CameraWidgetType type;
+    int readonly;
+    if (result == GP_OK)
+    {
+        result = gp_widget_get_name(widget, &name);
+    }
+    if (result == GP_OK)
+    {
+        result = gp_widget_get_type(widget, &type);
+    }
+    if (result == GP_OK)
+    {
+        result = gp_widget_get_info(widget, &info);
+    }
+    if (result == GP_OK)
+    {
+        result = gp_widget_get_label(widget, &label);
+    }
+    if (result == GP_OK)
+    {
+        result = gp_widget_get_readonly(widget, &readonly);
+    }
+    if (result == GP_OK)
+    {
+        switch (type) {
+            case GP_WIDGET_WINDOW:
+                typestring = "WINDOW";
+                break;
+            case GP_WIDGET_SECTION:
+                typestring = "SECTION";
+                break;
+            case GP_WIDGET_TEXT:
+                typestring = "TEXT";
+                break;
+            case GP_WIDGET_RANGE:
+                typestring = "RANGE";
+                break;
+            case GP_WIDGET_TOGGLE:
+                typestring = "TOGGLE";
+                break;
+            case GP_WIDGET_RADIO:
+                typestring = "RADIO";
+                break;
+            case GP_WIDGET_MENU:
+                typestring = "MENU";
+                break;
+            case GP_WIDGET_BUTTON:
+                typestring = "BUTTON";
+                break;
+            case GP_WIDGET_DATE:
+                typestring = "DATE";
+                break;
+            default:
+                assert(false);
+                typestring = "UNKNOWN TYPE";
+                break;
+        }
+    }
+    int count = gp_widget_count_children(widget);
+    if (result == GP_OK)
+    {
+        [destination appendFormat:@"%@%s %s / %s / %s / %s ", spaces, name, typestring, readonly ? "readonly" : "readwrite", label, info];
+        switch (type) {
+            case GP_WIDGET_MENU:
+            case GP_WIDGET_RADIO:
+            case GP_WIDGET_TEXT:
+            {
+                const char *val;
+                result = gp_widget_get_value (widget, &val);
+                [destination appendFormat:@"/ %s", val];
+                break;
+            }
+
+            case GP_WIDGET_RANGE:
+            {
+                float val;
+                result = gp_widget_get_value (widget, &val);
+                [destination appendFormat:@"/ %f", val];
+                break;
+            }
+                break;
+            case GP_WIDGET_TOGGLE:
+            case GP_WIDGET_DATE:
+            {
+                int val;
+                result = gp_widget_get_value(widget, &val);
+                [destination appendFormat:@"/ %d", val];
+                break;
+            }
+            case GP_WIDGET_WINDOW:
+            case GP_WIDGET_SECTION:
+            case GP_WIDGET_BUTTON:
+                // no value
+                break;
+        }
+        [destination appendFormat:@"\n"];
+    }
+    if (count > 0)
+    {
+        [destination appendFormat:@"%@{\n", spaces];
+    }
+    for (int i = 0; i < count && result == GP_OK; i++)
+    {
+        CameraWidget *child;
+        result = gp_widget_get_child(widget, i, &child);
+        if (result == GP_OK)
+        {
+            result = describe_widget(child, indent + 1, destination);
+        }
+    }
+    if (count > 0)
+    {
+        [destination appendFormat:@"%@} (%s)\n", spaces, name];
+    }
+    return result;
+}
+
+static int
+list_widgets(Camera *camera, GPContext *context, NSString **string)
+{
+    CameraWidget *widget = NULL;
+    CameraAbilities abilities;
+    NSMutableString *s = [NSMutableString string];
+    int result = gp_camera_get_abilities(camera, &abilities);
+    if (result == GP_OK)
+    {
+        NSString *library = [NSString stringWithUTF8String:abilities.library];
+        library = [library lastPathComponent];
+        [s appendFormat:@"%s / %@ / porttype:%#04x / ops:%#04x / file:%#04x / folder:%#04x\n", abilities.model, library, abilities.port, abilities.operations, abilities.file_operations, abilities.folder_operations];
+    }
+    if (result == GP_OK)
+    {
+        result = gp_camera_get_config (camera, &widget, context);
+    }
+    if (result == GP_OK)
+    {
+        result = describe_widget(widget, 1, s);
+    }
+    *string = s;
+    return result;
+}
+
 @implementation SyPGPhotoCamera {
     NSString *_name;
     NSString *_port;
@@ -450,6 +605,18 @@ static GPContext *theCameraContext = NULL;
     return _identifier;
 }
 
++ (NSError *)errorForResult:(int)result
+{
+    if (result == GP_OK)
+    {
+        return nil;
+    }
+    const char *str = gp_result_as_string(result);
+    return [NSError errorWithDomain:@"SyPGPhotoErrorDomain"
+                               code:result
+                           userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithUTF8String:str]}];
+}
+
 - (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
 {
     [super startLiveViewOnQueue:queue withHandler:handler];
@@ -478,8 +645,7 @@ static GPContext *theCameraContext = NULL;
                 NSError *error = nil;
                 if (result != GP_OK)
                 {
-                    const char *str = gp_result_as_string(result);
-                    error = [NSError errorWithDomain:@"SyPGPhotoErrorDomeain" code:result userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithUTF8String:str]}];
+                    error = [[self class] errorForResult:result];
                 }
                 dispatch_async(queue, ^{
                     handler(error ? nil : file, error);
@@ -501,6 +667,23 @@ static GPContext *theCameraContext = NULL;
     [_queue waitUntilAllOperationsAreFinished];
     [_queue release];
     _queue = nil;
+}
+
+- (NSString *)stateStringWithError:(NSError **)error
+{
+    NSString *description = @"";
+    Camera *camera;
+    int result = camera_open(&camera, self.name.UTF8String, self._port.UTF8String, [self class].cameraContext);
+    if (result == GP_OK)
+    {
+        result = list_widgets(camera, [self class].cameraContext, &description);
+        gp_camera_unref(camera);
+    }
+    if (error)
+    {
+        *error = [[self class] errorForResult:result];
+    }
+    return description;
 }
 
 @end

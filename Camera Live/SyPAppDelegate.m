@@ -331,4 +331,19 @@ void patchICCameraDeviceImageCaptureStuff()
     patchICCameraDeviceImageCaptureStuff();
 }
 
+- (IBAction)cameraDescriptionToClipboard:(id)sender
+{
+    NSInteger index = self.tableView.selectedRow;
+    if (self.cameras.count > index)
+    {
+        [NSPasteboard.generalPasteboard clearContents];
+        NSError *error;
+        NSString *string = [self.cameras[index] stateStringWithError:&error];
+        if (error)
+        {
+            [[NSApplication sharedApplication] presentError:error];
+        }
+        [NSPasteboard.generalPasteboard setString:string forType:NSPasteboardTypeString];
+    }
+}
 @end

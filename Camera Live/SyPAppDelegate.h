@@ -61,5 +61,7 @@
 @property (readwrite, retain) NSArray *selectedCameras;
 @property (assign) IBOutlet NSArrayController *camerasArrayController;
 @property (assign) IBOutlet SyPToolbarDelegate *toolbarDelegate;
+@property (assign) IBOutlet NSTableView *tableView;
 - (IBAction)goToWebIssues:(id)sender;
+- (IBAction)cameraDescriptionToClipboard:(id)sender;
 @end

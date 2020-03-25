@@ -107,4 +107,13 @@ NSString * const SyPCameraRemovedNotification = @"SyPCameraRemovedNotification";
 {
     return _isInLiveView;
 }
+
+- (NSString *)stateStringWithError:(NSError **)error
+{
+    if (error)
+    {
+        *error = nil;
+    }
+    return @"";
+}
 @end

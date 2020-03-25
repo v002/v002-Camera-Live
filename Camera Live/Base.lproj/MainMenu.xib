@@ -690,6 +690,9 @@
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <outlet property="menu" destination="Lxt-hH-NsW" id="rPf-Em-Utq"/>
+                                                </connections>
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
@@ -771,5 +774,21 @@
             <color key="fillColor" red="0.7019608021" green="0.7019608021" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="497" y="154"/>
         </box>
+        <menu id="Lxt-hH-NsW">
+            <items>
+                <menuItem title="Copy Camera Description" id="hvf-Lg-39f">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="cameraDescriptionToClipboard:" target="494" id="S2x-n6-Blm"/>
+                        <binding destination="494" name="enabled" keyPath="activeCamera" id="OZ2-T6-8Oq">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSIsNil</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="185" y="-267"/>
+        </menu>
     </objects>
 </document>
