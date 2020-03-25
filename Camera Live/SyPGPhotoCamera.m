@@ -496,11 +496,8 @@ static GPContext *theCameraContext = NULL;
     NSURL *base = [NSBundle mainBundle].builtInPlugInsURL;
     NSURL *iolibsurl = [base URLByAppendingPathComponent:@"Ports" isDirectory:YES];
     NSURL *camlibsurl = [base URLByAppendingPathComponent:@"Cameras" isDirectory:YES];
-    // TODO: not the following if it remains a straight passthrough
-    NSString *iolibs = [NSString stringWithFormat:@"%s", iolibsurl.fileSystemRepresentation];
-    NSString *camlibs = [NSString stringWithFormat:@"%s", camlibsurl.fileSystemRepresentation];
-    setenv("IOLIBS", iolibs.UTF8String, 1);
-    setenv("CAMLIBS", camlibs.UTF8String, 1);
+    setenv("IOLIBS", iolibsurl.fileSystemRepresentation, 1);
+    setenv("CAMLIBS", camlibsurl.fileSystemRepresentation, 1);
 
     assert(!self.cameraQueue);
     self.cameraQueue = dispatch_queue_create("info.v002.camera-live.camera-presence", DISPATCH_QUEUE_SERIAL);
