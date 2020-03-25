@@ -264,11 +264,6 @@ static GPContext *theCameraContext = NULL;
     theCameraContext = cameraContext;
 }
 
-static void gplog(GPLogLevel level, const char *domain, const char *str, void *data)
-{
-    NSLog(@"%s: %s", domain, str);
-}
-
 + (void)updateCameraList
 {
     NSSet *before = [self cameras];
