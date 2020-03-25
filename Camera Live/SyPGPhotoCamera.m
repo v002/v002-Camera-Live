@@ -643,6 +643,15 @@ static GPContext *theCameraContext = NULL;
                     result = gp_camera_capture_preview(camera, file.file, [self class].cameraContext);
                 }
                 NSError *error = nil;
+                if (result == GP_OK)
+                {
+                    const char *mime = NULL;
+                    if (gp_file_get_mime_type(file.file, &mime) != GP_OK || strcmp(mime, GP_MIME_JPEG) != 0)
+                    {
+                        NSString *description = [NSString stringWithFormat:@"Unsupported mime type: %s", mime];
+                        error = [NSError errorWithDomain:@"SyPInternalErrorDomain" code:-1 userInfo:@{NSLocalizedDescriptionKey: description}];
+                    }
+                }
                 if (result != GP_OK)
                 {
                     error = [[self class] errorForResult:result];
