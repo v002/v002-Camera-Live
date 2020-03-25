@@ -165,6 +165,54 @@ camera_open(Camera ** camera, const char *model, const char *port, GPContext *co
     return result;
 }
 
+/*
+ * This enables/disables the specific canon capture mode.
+ *
+ * For non canons this is not required, and will just return
+ * with an error (but without negative effects).
+ */
+static int
+canon_enable_capture(Camera *camera, int onoff, GPContext *context) {
+    CameraWidget        *widget = NULL;
+    CameraWidgetType    type;
+    int            ret;
+
+    ret = gp_camera_get_single_config (camera, "capture", &widget, context);
+    if (ret < GP_OK)
+    {
+        return ret;
+    }
+
+    ret = gp_widget_get_type (widget, &type);
+    if (ret < GP_OK)
+    {
+        goto out;
+    }
+    switch (type)
+    {
+        case GP_WIDGET_TOGGLE:
+        break;
+    default:
+        ret = GP_ERROR_BAD_PARAMETERS;
+        goto out;
+    }
+    /* Now set the toggle to the wanted value */
+    ret = gp_widget_set_value (widget, &onoff);
+    if (ret < GP_OK)
+    {
+        goto out;
+    }
+    /* OK */
+    ret = gp_camera_set_single_config (camera, "capture", widget, context);
+    if (ret < GP_OK)
+    {
+        return ret;
+    }
+out:
+    gp_widget_free (widget);
+    return ret;
+}
+
 @implementation SyPGPhotoCamera {
     NSString *_name;
     NSString *_port;
@@ -423,6 +471,9 @@ static void gplog(GPLogLevel level, const char *domain, const char *str, void *d
         int result = camera_open(&camera, self.name.UTF8String, self._port.UTF8String, [self class].cameraContext);
         if (result == GP_OK)
         {
+            // libgphoto samples use this, though it doesn't appear to be necessary
+            // - ignore the result as it can fail for some cameras
+            canon_enable_capture(camera, 1, [self class].cameraContext);
             while (self.isInLiveView) {
                 SyPGPhotoImageBuffer *file = [[SyPGPhotoImageBuffer alloc] init];
                 if (file)
@@ -441,6 +492,7 @@ static void gplog(GPLogLevel level, const char *domain, const char *str, void *d
                 [file release];
 
             }
+            canon_enable_capture(camera, 0, [self class].cameraContext);
             gp_camera_unref(camera);
         }
     }];
