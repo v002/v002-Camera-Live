@@ -590,6 +590,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/libraries/lib",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 12;
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";
@@ -625,6 +626,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/libraries/lib",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 12;
 				PRODUCT_BUNDLE_IDENTIFIER = "info.v002.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Camera Live";

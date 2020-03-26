@@ -11,6 +11,7 @@
 #include "SyPUSBHotplugWatcher.h"
 #include <gphoto2/gphoto2.h>
 #include <gphoto2/gphoto2-abilities-list.h>
+#include <os/log.h>
 
 @interface SyPGPhotoCamera (Private)
 @property (class, readwrite, strong) SyPUSBHotplugWatcher *hotplug;
@@ -26,13 +27,13 @@
 static void
 camera_error_callback(GPContext *context, const char *str, void *data)
 {
-    NSLog(@"GP error: %s", str);
+    os_log_error(OS_LOG_DEFAULT, "libgphoto2: %s", str);
 }
 
 static void
 camera_status_callback(GPContext *context, const char *str, void *data)
 {
-    NSLog(@"GP status: %s", str);
+    os_log_info(OS_LOG_DEFAULT, "libgphoto2: %s", str);
 }
 
 static int
@@ -547,7 +548,10 @@ static GPContext *theCameraContext = NULL;
             Camera *camera;
 
             int result = camera_open(&camera, name.UTF8String, port.UTF8String, [self class].cameraContext);
-
+            if (result != GP_OK)
+            {
+                os_log_error(OS_LOG_DEFAULT, "Couldn't open camera: %d %s", result, gp_result_as_string(result));
+            }
             NSString *serial = nil;
 
             if (result == GP_OK)
@@ -611,7 +615,7 @@ static GPContext *theCameraContext = NULL;
     const char *str = gp_result_as_string(result);
     return [NSError errorWithDomain:@"SyPGPhotoErrorDomain"
                                code:result
-                           userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithUTF8String:str]}];
+                           userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Error communicating with the camera:\n %s", str]}];
 }
 
 - (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
@@ -628,16 +632,27 @@ static GPContext *theCameraContext = NULL;
         Camera *camera;
 
         int result = camera_open(&camera, self.name.UTF8String, self._port.UTF8String, [self class].cameraContext);
+        if (result != GP_OK)
+        {
+            os_log_error(OS_LOG_DEFAULT, "Couldn't open camera: %d %s", result, gp_result_as_string(result));
+        }
         if (result == GP_OK)
         {
             // libgphoto samples use this, though it doesn't appear to be necessary
             // - ignore the result as it can fail for some cameras
             canon_enable_capture(camera, 1, [self class].cameraContext);
+            int logCount = 0;
             while (self.isInLiveView) {
                 SyPGPhotoImageBuffer *file = [[SyPGPhotoImageBuffer alloc] init];
                 if (file)
                 {
                     result = gp_camera_capture_preview(camera, file.file, [self class].cameraContext);
+                    if (result != GP_OK && logCount < 6)
+                    {
+                        os_log_error(OS_LOG_DEFAULT, "gp_camera_capture_preview: %d %s", result, gp_result_as_string(result));
+                        logCount++;
+                    }
+                    // TODO: bail on GP_ERROR_IO_USB_FIND
                 }
                 NSError *error = nil;
                 if (result == GP_OK)
