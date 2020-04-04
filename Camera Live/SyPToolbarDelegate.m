@@ -65,4 +65,9 @@
     return item;
 }
 
+- (void)dealloc
+{
+    [status release];
+    [super dealloc];
+}
 @end
