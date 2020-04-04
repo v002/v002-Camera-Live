@@ -82,7 +82,7 @@ static int usb_hotplug_callback(libusb_context *ctx, libusb_device *device, libu
         });
         _notifications = notifications;
         dispatch_activate(_notifications);
-        dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, DISPATCH_QUEUE_PRIORITY_LOW, 0);
+        dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0);
         _sources = [[NSMutableSet alloc] initWithCapacity:8];
         _USBQueue = dispatch_queue_create("info.v002.camera-live.libusb", attr);
         if (![self setupUSB])
