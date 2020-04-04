@@ -54,7 +54,7 @@
     NSToolbarItem *item = nil;
     if ([itemIdentifier isEqualToString:@"StatusItemIdentifier"])
     {
-        item = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+        item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
         [item setLabel:@"Status"];
         [item setPaletteLabel:@"Status"];
         [item setToolTip:@"Status"];
@@ -65,9 +65,4 @@
     return item;
 }
 
-- (void)dealloc
-{
-    [status release];
-    [super dealloc];
-}
 @end

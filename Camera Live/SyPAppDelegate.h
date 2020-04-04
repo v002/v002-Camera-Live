@@ -38,9 +38,6 @@
 
 @interface SyPAppDelegate : NSObject <NSApplicationDelegate, CameraPresenceProtocol>
 {
-    NSWindow *_window;
-    NSArrayController *_camerasArrayController;
-    SyPToolbarDelegate *_toolbarDelegate;
     NSMutableArray *_cameras;
     NSArray<NSDictionary<NSString *, id> *> *_selectedCameras;
     NSDictionary<NSString *, id> *_active;

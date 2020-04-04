@@ -136,8 +136,6 @@
 
 - (void)setSelectedCameras:(NSArray<NSDictionary<NSString *, id> *> *)selectedCameras
 {
-    [selectedCameras retain];
-    [_selectedCameras release];
     _selectedCameras = selectedCameras;
     NSDictionary<NSString *, id> *selected = [selectedCameras lastObject];
     if ([[self.camerasArrayController arrangedObjects] count])
@@ -168,7 +166,7 @@
                 {
                     [self setIdleStatus];
                 }
-                if (_awaitingTermination)
+                if (self->_awaitingTermination)
                 {
                     // TODO: once we support multiple cameras, wait for them all, not just the first
                     [[NSApplication sharedApplication] replyToApplicationShouldTerminate:YES];
@@ -176,8 +174,6 @@
            }];
         }];
     }
-    [activeCamera retain];
-    [_active release];
     _active = activeCamera;
     if (_active)
     {
