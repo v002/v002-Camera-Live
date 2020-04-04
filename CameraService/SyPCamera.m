@@ -64,19 +64,17 @@ NSString * const SyPCameraRemovedNotification = @"SyPCameraRemovedNotification";
 
 + (void)removeCamera:(SyPCamera *)removed
 {
-    [removed retain];
     @synchronized([self class]) {
        [[self mutableCameras] removeObject:removed];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:SyPCameraRemovedNotification object:removed];
-    [removed release];
 }
 
 + (NSSet *)cameras
 {
     NSSet *cameras;
     @synchronized(self) {
-        cameras = [[[self mutableCameras] copy] autorelease];
+        cameras = [[self mutableCameras] copy];
     }
     return cameras;
 }
@@ -93,7 +91,7 @@ NSString * const SyPCameraRemovedNotification = @"SyPCameraRemovedNotification";
 
 - (NSString *)name { return @""; }
 - (NSString *)identifier { return @""; }
-- (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler
+- (void)startLiveView
 {
     _isInLiveView = YES;
 }
@@ -101,6 +99,11 @@ NSString * const SyPCameraRemovedNotification = @"SyPCameraRemovedNotification";
 - (void)stopLiveView
 {
     _isInLiveView = NO;
+}
+
+- (SyPImageBuffer *)getImageWithError:(NSError **)error
+{
+    return nil;
 }
 
 - (BOOL)isInLiveView

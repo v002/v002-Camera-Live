@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SyPGPhotoCamera : SyPCamera
+@class SyPGPhotoContext;
 
+@interface SyPGPhotoCamera : SyPCamera
+@property (readonly) SyPGPhotoContext *context;
 @end
 
 NS_ASSUME_NONNULL_END

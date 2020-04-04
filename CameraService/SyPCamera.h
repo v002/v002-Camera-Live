@@ -45,9 +45,10 @@ typedef void(^SyPCameraImageHandler)(SyPImageBuffer *image, NSError *error);
 + (NSSet *)cameras;
 @property (readonly) NSString *name;
 @property (readonly) NSString *identifier; // Unique per device and persistent
-- (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler;
+- (void)startLiveView;
 - (void)stopLiveView;
 @property (readonly) BOOL isInLiveView;
+- (SyPImageBuffer *)getImageWithError:(NSError **)error;
 - (NSString *)stateStringWithError:(NSError **)error;
 @end
 

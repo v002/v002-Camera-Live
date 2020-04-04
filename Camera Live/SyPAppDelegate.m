@@ -31,41 +31,57 @@
 
 #import "SyPAppDelegate.h"
 #import "SyPCamera.h"
-#import "SyPGPhotoCamera.h"
-#import "SyPImageBuffer.h"
-#import <OpenGL/CGLMacro.h>
 #import <objc/runtime.h>
-
+#import "CameraServiceProtocol.h"
+#import "SyPCameraKeys.h"
 #define kActiveCameraIDDefaultsKey @"ActiveCameraID"
-
-@interface SyPAppDelegate (Private)
-- (void)addCamera:(SyPCamera *)camera;
-- (void)removeCamera:(SyPCamera *)camera;
-@end
 
 
 @implementation SyPAppDelegate
-
-- (void)addCamera:(SyPCamera *)camera
+- (void)addCamera:(NSDictionary<NSString *, id> *)camera
 {
-    [self.camerasArrayController addObject:camera];
-    if (self.activeCamera == nil)
+    if (!_awaitingTermination)
     {
-        self.toolbarDelegate.status = @"Ready";
-        NSString *previousID = [[NSUserDefaults standardUserDefaults] objectForKey:kActiveCameraIDDefaultsKey];
-        if ([previousID isEqualToString:camera.identifier])
-        {
-            [self.camerasArrayController setSelectedObjects:[NSArray arrayWithObject:camera]];
-        }
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.camerasArrayController addObject:camera];
+            if (self.activeCamera == nil)
+            {
+                self.toolbarDelegate.status = @"Ready";
+                NSString *previousID = [[NSUserDefaults standardUserDefaults] objectForKey:kActiveCameraIDDefaultsKey];
+                if ([previousID isEqualToString:camera[kSyPGPhotoKeyIdentifier]])
+                {
+                    [self.camerasArrayController setSelectedObjects:[NSArray arrayWithObject:camera]];
+                }
+            }
+        }];
     }
 }
 
-- (void)removeCamera:(SyPCamera *)camera
+- (void)removeCamera:(NSDictionary<NSString *, id> *)camera
 {
-    [self.camerasArrayController removeObject:camera];
-    if ([self.cameras count] == 0)
+    if (!_awaitingTermination)
     {
-        self.toolbarDelegate.status = @"No Camera";
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.camerasArrayController removeObject:camera];
+            if ([self.cameras count] == 0)
+            {
+                self.toolbarDelegate.status = @"No Camera";
+            }
+            if ([self.activeCamera isEqualToDictionary:camera])
+            {
+                self.activeCamera = nil;
+            }
+        }];
+    }
+}
+
+- (void)error:(NSError *)error forCamera:(NSDictionary<NSString *, id> *)cam
+{
+    if ([self.activeCamera isEqualToDictionary:cam])
+    {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            self.toolbarDelegate.status = @"Camera Error";
+        }];
     }
 }
 
@@ -77,64 +93,92 @@
 {
     self.toolbarDelegate.status = @"No Camera";
     _cameras = [[NSMutableArray alloc] initWithCapacity:4];
-    _decompressor = tjInitDecompress();
+    
     [self bind:@"selectedCameras" toObject:self.camerasArrayController withKeyPath:@"selectedObjects" options:nil];
-    [[NSNotificationCenter defaultCenter] addObserverForName:SyPCameraAddedNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      [self addCamera:[note object]];
-                                                  }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:SyPCameraRemovedNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      [self removeCamera:[note object]];
-                                                  }];
-    [SyPGPhotoCamera startDriver];
+    _cameraService = [[NSXPCConnection alloc] initWithServiceName:@"info.v002.CameraService"];
+    _cameraService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(CameraServiceProtocol)];
+    _cameraService.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(CameraPresenceProtocol)];
+    _cameraService.exportedObject = self;
+    [_cameraService resume];
+
+    [_cameraService.remoteObjectProxy startWithReply:^(NSError *error) {
+        if (error)
+        {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [[NSApplication sharedApplication] presentError:error];
+            }];
+        }
+    }];
+}
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
+{
+    if (self.activeCamera)
+    {
+        self.activeCamera = nil;
+        _awaitingTermination = YES;
+        return NSTerminateLater;
+    }
+    return NSTerminateNow;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
+    self.activeCamera = nil;
+    [_cameraService invalidate];
     [self.camerasArrayController removeObjects:[self.camerasArrayController arrangedObjects]];
-    [SyPGPhotoCamera endDriver];
 }
 
-- (NSArray *)selectedCameras
+- (NSArray<NSDictionary<NSString *, id> *> *)selectedCameras
 {
     return _selectedCameras;
 }
 
-- (void)setSelectedCameras:(NSArray *)selectedCameras
+- (void)setSelectedCameras:(NSArray<NSDictionary<NSString *, id> *> *)selectedCameras
 {
     [selectedCameras retain];
     [_selectedCameras release];
     _selectedCameras = selectedCameras;
-    SyPCamera *selected = [selectedCameras lastObject];
+    NSDictionary<NSString *, id> *selected = [selectedCameras lastObject];
     if ([[self.camerasArrayController arrangedObjects] count])
     {
         // we only want to record an identifier (or lack thereof) if the selection (or lack thereof) was from at least
         // one existant camera
-        [[NSUserDefaults standardUserDefaults] setObject:selected.identifier forKey:kActiveCameraIDDefaultsKey];
+        [[NSUserDefaults standardUserDefaults] setObject:selected[kSyPGPhotoKeyIdentifier]
+                                                  forKey:kActiveCameraIDDefaultsKey];
     }
     self.activeCamera = selected;
 }
 
-- (SyPCamera *)activeCamera
+- (NSDictionary<NSString *, id> *)activeCamera
 {
     return _active;
 }
 
-- (void)setActiveCamera:(SyPCamera *)activeCamera
+- (void)setActiveCamera:(NSDictionary<NSString *, id> *)activeCamera
 {
+    BOOL stopping = NO;
+    if (_active)
+    {
+        stopping = YES;
+        self.toolbarDelegate.status = @"Stopping";
+        [_cameraService.remoteObjectProxy stopForDescription:_active withReply:^(NSError *error) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                if ([self.toolbarDelegate.status isEqualToString:@"Stopping"])
+                {
+                    [self setIdleStatus];
+                }
+                if (_awaitingTermination)
+                {
+                    // TODO: once we support multiple cameras, wait for them all, not just the first
+                    [[NSApplication sharedApplication] replyToApplicationShouldTerminate:YES];
+                }
+           }];
+        }];
+    }
     [activeCamera retain];
-    [_active stopLiveView];
     [_active release];
     _active = activeCamera;
-    if (_queue == nil)
-    {
-        _queue = dispatch_queue_create("info.v002.Camera-Live.liveview", DISPATCH_QUEUE_SERIAL);
-    }
     if (_active)
     {
         if (_noSleepAssertion == 0)
@@ -148,145 +192,43 @@
                                                NULL,
                                                &_noSleepAssertion);
         }
-        
-        dispatch_async(_queue, ^{
-            _started = NO;
-        });
-        
-        NSString *status = nil;
-        if (cgl_ctx == nil)
-        {
-            CGLPixelFormatAttribute attribs[] = {
-                kCGLPFAAccelerated,
-                kCGLPFAAllowOfflineRenderers,
-                kCGLPFAColorSize, 32,
-                kCGLPFADepthSize, 0,
-                0};
-            
-            CGLPixelFormatObj pixelFormat;
-            GLint count;
-            CGLError result = CGLChoosePixelFormat(attribs, &pixelFormat, &count);
-            
-            if (result == kCGLNoError)
-            {
-                result = CGLCreateContext(pixelFormat, NULL, &cgl_ctx);
-                CGLReleasePixelFormat(pixelFormat);
-            }
-            
-            if (result == kCGLNoError)
-            {
-                glEnable(GL_TEXTURE_RECTANGLE_ARB);
-                glDisable(GL_DEPTH);
-                glPixelStorei(GL_UNPACK_CLIENT_STORAGE_APPLE, GL_TRUE);
-            }
-            else
-            {
-                status = @"OpenGL Error";
-            }
-        }
-        if (_server == nil && status == nil)
-        {
-            _server = [[SyphonServer alloc] initWithName:activeCamera.name context:cgl_ctx options:nil];
-            if (_server == nil)
-            {
-                status = @"Syphon Error";
-            }
-        }
-        else if (status == nil)
-        {
-            _server.name = activeCamera.name;
-        }
-        if (status == nil)
-        {
-            [_active startLiveViewOnQueue:_queue withHandler:^(SyPImageBuffer *image, NSError *error) {
-                if (image)
+        self.toolbarDelegate.status = @"Starting";
+        [_cameraService.remoteObjectProxy startForDescription:_active withReply:^(NSError *error) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                if (error)
                 {
-                    if (!_started)
-                    {
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            self.toolbarDelegate.status = @"Active";
-                        }];
-                        _started = YES;
-                    }
-                    int width, height;
-                    int result = tjDecompressHeader(_decompressor, (unsigned char *)image.baseAddress, image.length, &width, &height);
-                    if (result == 0)
-                    {
-                        size_t wanted_bpr = TJPAD(tjPixelSize[TJPF_BGRA] * width);
-                        if (wanted_bpr * height != _bufferSize)
-                        {
-                            free(_buffer);
-                            _bufferSize = wanted_bpr * height;
-                            _buffer = malloc(_bufferSize);
-                            glTextureRangeAPPLE(GL_TEXTURE_RECTANGLE_ARB, _bufferSize, _buffer);
-                            
-                        }
-                        result = tjDecompress2(_decompressor, image.baseAddress, image.length, _buffer, width, wanted_bpr, height, TJPF_BGRA, TJFLAG_BOTTOMUP);
-                        if (result == 0)
-                        {
-                            if ([_server bindToDrawFrameOfSize:(NSSize){width, height}])
-                            {
-                                SyphonImage *serverImage = [_server newFrameImage];
-                                if (serverImage)
-                                {
-                                    glBindTexture(GL_TEXTURE_RECTANGLE_ARB, serverImage.textureName);
-                                    glTexParameteri(GL_TEXTURE_RECTANGLE_ARB,
-                                                    GL_TEXTURE_STORAGE_HINT_APPLE,
-                                                    GL_STORAGE_SHARED_APPLE);
-                                    glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _buffer);
-                                    glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
-                                    [serverImage release];
-                                }
-                                [_server unbindAndPublish];
-                            }
-                        }
-                    }
+                    self.toolbarDelegate.status = @"Camera Error";
                 }
-                else if (error)
+                else
                 {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        if (self.activeCamera != nil)
-                        {
-                            self.toolbarDelegate.status = @"Camera Error";
-                        }
-                    }];
+                    self.toolbarDelegate.status = @"Active";
                 }
             }];
-        }
-        if (status)
-        {
-            [_active release];
-            _active = nil;
-            [_camerasArrayController setSelectedObjects:[NSArray array]];
-            dispatch_async(_queue, ^{
-                [_server stop];
-                [_server release];
-                _server = nil;
-            });
-        }
-        else
-        {
-            status = @"Starting";
-        }
-        self.toolbarDelegate.status = status;
+        }];
     }
     else
     {
-        if ([self.cameras count]) self.toolbarDelegate.status = @"Ready";
-        else self.toolbarDelegate.status = @"No Camera";
+        if (!stopping)
+        {
+            [self setIdleStatus];
+        }
         if (_noSleepAssertion)
         {
             IOPMAssertionRelease(_noSleepAssertion);
             _noSleepAssertion = 0;
         }
-        if (_queue)
-        {
-            dispatch_async(_queue, ^{
-                [_server stop];
-                [_server release];
-                _server = nil;
-            });
-        }
+    }
+}
+
+- (void)setIdleStatus
+{
+    if (self.cameras.count)
+    {
+        self.toolbarDelegate.status = @"Ready";
+    }
+    else
+    {
+        self.toolbarDelegate.status = @"No Camera";
     }
 }
 
@@ -336,14 +278,20 @@ void patchICCameraDeviceImageCaptureStuff()
     NSInteger index = self.tableView.selectedRow;
     if (self.cameras.count > index)
     {
-        [NSPasteboard.generalPasteboard clearContents];
-        NSError *error;
-        NSString *string = [self.cameras[index] stateStringWithError:&error];
-        if (error)
-        {
-            [[NSApplication sharedApplication] presentError:error];
-        }
-        [NSPasteboard.generalPasteboard setString:string forType:NSPasteboardTypeString];
+        [_cameraService.remoteObjectProxy infoTextForDescription:self.cameras[index] withReply:^(NSString *state, NSError *error) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                if (error)
+                {
+                    [[NSApplication sharedApplication] presentError:error];
+                }
+                else
+                {
+                    [NSPasteboard.generalPasteboard clearContents];
+                    [NSPasteboard.generalPasteboard setString:state forType:NSPasteboardTypeString];
+                }
+            }];
+        }];
     }
 }
+
 @end

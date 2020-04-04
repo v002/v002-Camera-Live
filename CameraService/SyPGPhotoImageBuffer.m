@@ -20,7 +20,6 @@
         int result = gp_file_new(&_file);
         if (result != GP_OK)
         {
-            [self release];
             self = nil;
         }
     }
@@ -33,7 +32,6 @@
     {
         gp_file_unref(_file);
     }
-    [super dealloc];
 }
 
 - (const void *)baseAddress

@@ -30,35 +30,29 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <OpenGL/OpenGL.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
-#import <turbojpeg.h>
-#import "Syphon/Syphon.h"
 #import "SyPToolbarDelegate.h"
+#import "CameraPresenceProtocol.h"
 
 @class SyPCamera;
 
-@interface SyPAppDelegate : NSObject <NSApplicationDelegate>
+@interface SyPAppDelegate : NSObject <NSApplicationDelegate, CameraPresenceProtocol>
 {
     NSWindow *_window;
     NSArrayController *_camerasArrayController;
     SyPToolbarDelegate *_toolbarDelegate;
     NSMutableArray *_cameras;
-    NSArray *_selectedCameras;
-    dispatch_queue_t _queue;
-    SyPCamera *_active;
-    tjhandle _decompressor;
-    void *_buffer;
-    size_t _bufferSize;
+    NSArray<NSDictionary<NSString *, id> *> *_selectedCameras;
+    NSDictionary<NSString *, id> *_active;
     BOOL _started;
-    SyphonServer *_server;
-    CGLContextObj cgl_ctx;
     IOPMAssertionID _noSleepAssertion;
+    NSXPCConnection *_cameraService;
+    BOOL _awaitingTermination;
 }
 @property (assign) IBOutlet NSWindow *window;
 @property (readonly) NSArray *cameras;
-@property (readwrite, retain) SyPCamera *activeCamera;
-@property (readwrite, retain) NSArray *selectedCameras;
+@property (readwrite, retain) NSDictionary<NSString *, id> *activeCamera;
+@property (readwrite, retain) NSArray<NSDictionary<NSString *, id> *> *selectedCameras;
 @property (assign) IBOutlet NSArrayController *camerasArrayController;
 @property (assign) IBOutlet SyPToolbarDelegate *toolbarDelegate;
 @property (assign) IBOutlet NSTableView *tableView;

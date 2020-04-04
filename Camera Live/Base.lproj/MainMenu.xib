@@ -660,7 +660,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="371" height="180"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="240" height="70"/>
             <value key="maxSize" type="size" width="400" height="800"/>
             <view key="contentView" id="372">
@@ -695,7 +695,11 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="551" name="value" keyPath="arrangedObjects.name" id="554"/>
+                                                <binding destination="551" name="value" keyPath="arrangedObjects.Name" id="NDi-jl-jtl">
+                                                    <dictionary key="options">
+                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </tableColumn>
                                     </tableColumns>
@@ -741,7 +745,7 @@
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
-        <arrayController objectClassName="SyPCamera" editable="NO" selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="551">
+        <arrayController objectClassName="NSDictionary" editable="NO" selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="551">
             <connections>
                 <binding destination="494" name="contentArray" keyPath="cameras" id="552"/>
             </connections>
