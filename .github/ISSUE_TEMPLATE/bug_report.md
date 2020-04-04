@@ -6,6 +6,12 @@ labels: ''
 assignees: ''
 
 ---
+**PLEASE COMPLETE ALL OF THIS SECTION**
+
+**System:**
+ - macOS version: [e.g. 10.15.3 - see Apple menu > About This Mac]
+ - Camera manufacturer and model [e.g. Canon EOS 7D]
+ - Camera Live version [e.g. 11]
 
 **Describe the bug**
 A clear and concise description of what the bug is.
@@ -21,12 +27,6 @@ A clear and concise description of what you expected to happen.
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - macOS version: [e.g. 10.15.3 - see Apple menu > About This Mac]
- - Camera manufacturer and model [e.g. Canon EOS 7D]
- - Camera Live version [e.g. 11]
-
 
 **Additional context**
 Add any other context about the problem here.
