@@ -35,7 +35,7 @@
 #import "CameraServiceProtocol.h"
 #import "SyPCameraKeys.h"
 #define kActiveCameraIDDefaultsKey @"ActiveCameraID"
-
+#define kAutoVersionCheckDefaultsKey @"AutoVersionCheck"
 
 @implementation SyPAppDelegate
 - (void)addCamera:(NSDictionary<NSString *, id> *)camera
@@ -92,6 +92,9 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.toolbarDelegate.status = @"No Camera";
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kAutoVersionCheckDefaultsKey: @(YES)}];
+
+    [self bind:@"doesVersionCheck" toObject:[NSUserDefaults standardUserDefaults] withKeyPath:kAutoVersionCheckDefaultsKey options:nil];
     _cameras = [[NSMutableArray alloc] initWithCapacity:4];
     
     [self bind:@"selectedCameras" toObject:self.camerasArrayController withKeyPath:@"selectedObjects" options:nil];
@@ -109,6 +112,24 @@
             }];
         }
     }];
+}
+
+- (BOOL)doesVersionCheck
+{
+    return _updater ? YES : NO;
+}
+
+- (void)setDoesVersionCheck:(BOOL)does
+{
+    if (does && !_updater)
+    {
+        _updater = [self versionCheckForUser:NO];
+    }
+    else if (!does)
+    {
+        [_updater invalidate];
+        _updater = nil;
+    }
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
@@ -286,6 +307,80 @@ void patchICCameraDeviceImageCaptureStuff()
                     [NSPasteboard.generalPasteboard setString:state forType:NSPasteboardTypeString];
                 }
             }];
+        }];
+    }
+}
+
+- (IBAction)userVersionCheck:(id)sender
+{
+    [self versionCheckForUser:YES];
+}
+
+- (SyPVersionCheck *)versionCheckForUser:(BOOL)user
+{
+    return [SyPVersionCheck checkWithURL:[NSURL URLWithString:@"https://s3-eu-west-1.amazonaws.com/files.kriss.cx/camera_live_versions.xml"]
+                           userInitiated:user
+                                 handler:^(BOOL checkSucceeded, NSUInteger currentVersion, NSUInteger latestVersion, NSURL *downloadLink) {
+        [self versionCheckDidCompleteForUser:user
+                                 withSuccess:checkSucceeded
+                              currentVersion:currentVersion
+                               latestVersion:latestVersion
+                                downloadLink:downloadLink];
+    }];
+}
+
+- (void)versionCheckDidCompleteForUser:(BOOL)user withSuccess:(BOOL)success currentVersion:(NSUInteger)current latestVersion:(NSUInteger)latest downloadLink:(NSURL *)link
+{
+    if ((success && latest > current) || user)
+    {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            NSAlert *alert = [[NSAlert alloc] init];
+            if (success && latest > current)
+            {
+
+                NSString *info = [NSString stringWithFormat:@"You currently have version %02lu. Version %02lu is available.",
+                                  (unsigned long)current, (unsigned long)latest];
+
+                alert.messageText = @"An update is available.";
+                alert.informativeText = info;
+                alert.alertStyle = NSAlertStyleInformational;
+                [alert addButtonWithTitle:@"Download"];
+                NSButton *ignoreButton = [alert addButtonWithTitle:@"Ignore"];
+                [ignoreButton setKeyEquivalent:@"\e"];
+                if (!user)
+                {
+                    [alert setShowsSuppressionButton:YES];
+                    [[alert suppressionButton] setTitle:@"Do not check for updates again"];
+                }
+                [alert beginSheetModalForWindow:self.window
+                              completionHandler:^(NSModalResponse returnCode) {
+                    if ([[alert suppressionButton] state] == NSControlStateValueOn)
+                    {
+                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kAutoVersionCheckDefaultsKey];
+                    }
+
+                    if (returnCode == NSAlertFirstButtonReturn)
+                    {
+                        [[NSWorkspace sharedWorkspace] openURL:link];
+                    }
+                }];
+            }
+            else if (user)
+            {
+                if (success)
+                {
+                    alert.messageText = @"No update is available.";
+                    alert.informativeText = [NSString stringWithFormat:@"Your current version, %02lu, is the latest version.", (unsigned long)current];
+                    alert.alertStyle = NSAlertStyleInformational;
+                }
+                else
+                {
+                    alert.messageText = @"There was a problem checking for a new version.";
+                    alert.informativeText = @"It was not possible to check for a new version. The server may be unreachable at this time.";
+                    alert.alertStyle = NSAlertStyleWarning;
+                }
+                [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) { }];
+            }
         }];
     }
 }

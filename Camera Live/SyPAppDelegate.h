@@ -33,6 +33,7 @@
 #import <IOKit/pwr_mgt/IOPMLib.h>
 #import "SyPToolbarDelegate.h"
 #import "CameraPresenceProtocol.h"
+#import "SyPVersionCheck.h"
 
 @class SyPCamera;
 
@@ -45,6 +46,7 @@
     IOPMAssertionID _noSleepAssertion;
     NSXPCConnection *_cameraService;
     BOOL _awaitingTermination;
+    SyPVersionCheck *_updater;
 }
 @property (assign) IBOutlet NSWindow *window;
 @property (readonly) NSArray *cameras;
@@ -55,4 +57,5 @@
 @property (assign) IBOutlet NSTableView *tableView;
 - (IBAction)goToWebIssues:(id)sender;
 - (IBAction)cameraDescriptionToClipboard:(id)sender;
+- (IBAction)userVersionCheck:(id)sender;
 @end

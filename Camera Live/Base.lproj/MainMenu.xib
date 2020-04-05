@@ -24,6 +24,12 @@
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Check for Update..." id="f8J-tx-LLC">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="userVersionCheck:" target="494" id="Uo5-Og-ZK8"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="236">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>

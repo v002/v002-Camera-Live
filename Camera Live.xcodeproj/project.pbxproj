@@ -22,6 +22,7 @@
 		E22167E8242D15EC0041FEE8 /* SyPUSBHotplugWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E209DE5624294FD000BBE6F7 /* SyPUSBHotplugWatcher.m */; };
 		E224B60D24340AB300A0840F /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E224B60C24340A9E00A0840F /* Syphon.framework */; };
 		E224B60E24340AB300A0840F /* Syphon.framework in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E224B60C24340A9E00A0840F /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E224B6242439295F00A0840F /* SyPVersionCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = E224B6232439295F00A0840F /* SyPVersionCheck.m */; };
 		E227AE3C1651D6B60045679D /* SyPToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */; };
 		E227AE3F1652A0020045679D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E227AE3E1652A0020045679D /* IOKit.framework */; };
 		E29174AD1FAB43C500AC9AD3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29174AC1FAB43C500AC9AD3 /* Images.xcassets */; };
@@ -170,6 +171,8 @@
 		E22167E7242D0C8E0041FEE8 /* CameraPresenceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraPresenceProtocol.h; sourceTree = "<group>"; };
 		E224B6052433FC6900A0840F /* SyPCameraKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyPCameraKeys.h; sourceTree = "<group>"; };
 		E224B60624340A9E00A0840F /* Syphon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Syphon.xcodeproj; path = "Syphon-Framework/Syphon.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		E224B6222439295F00A0840F /* SyPVersionCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPVersionCheck.h; sourceTree = "<group>"; };
+		E224B6232439295F00A0840F /* SyPVersionCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPVersionCheck.m; sourceTree = "<group>"; };
 		E225490C15F6289A00160073 /* SyPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPImage.h; sourceTree = "<group>"; };
 		E225490D15F6289A00160073 /* SyPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyPImage.m; sourceTree = "<group>"; };
 		E225491015F62C6800160073 /* SyPImageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyPImageBuffer.h; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				E227AE3B1651D6B60045679D /* SyPToolbarDelegate.m */,
 				E22167E7242D0C8E0041FEE8 /* CameraPresenceProtocol.h */,
 				E224B6052433FC6900A0840F /* SyPCameraKeys.h */,
+				E224B6222439295F00A0840F /* SyPVersionCheck.h */,
+				E224B6232439295F00A0840F /* SyPVersionCheck.m */,
 				E2B4026115F4F9BE00A2D1C9 /* MainMenu.xib */,
 				E29174AC1FAB43C500AC9AD3 /* Images.xcassets */,
 				E2B4025315F4F9BE00A2D1C9 /* Supporting Files */,
@@ -562,6 +567,7 @@
 				E2B4025915F4F9BE00A2D1C9 /* main.m in Sources */,
 				E2B4026015F4F9BE00A2D1C9 /* SyPAppDelegate.m in Sources */,
 				E227AE3C1651D6B60045679D /* SyPToolbarDelegate.m in Sources */,
+				E224B6242439295F00A0840F /* SyPVersionCheck.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
