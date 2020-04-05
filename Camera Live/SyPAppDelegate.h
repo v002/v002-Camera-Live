@@ -30,24 +30,11 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <IOKit/pwr_mgt/IOPMLib.h>
-#import "SyPToolbarDelegate.h"
 #import "CameraPresenceProtocol.h"
-#import "SyPVersionCheck.h"
 
-@class SyPCamera;
+@class SyPToolbarDelegate;
 
 @interface SyPAppDelegate : NSObject <NSApplicationDelegate, CameraPresenceProtocol>
-{
-    NSMutableArray *_cameras;
-    NSArray<NSDictionary<NSString *, id> *> *_selectedCameras;
-    NSDictionary<NSString *, id> *_active;
-    BOOL _started;
-    IOPMAssertionID _noSleepAssertion;
-    NSXPCConnection *_cameraService;
-    BOOL _awaitingTermination;
-    SyPVersionCheck *_updater;
-}
 @property (assign) IBOutlet NSWindow *window;
 @property (readonly) NSArray *cameras;
 @property (readwrite, retain) NSDictionary<NSString *, id> *activeCamera;

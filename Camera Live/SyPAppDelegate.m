@@ -34,10 +34,24 @@
 #import <objc/runtime.h>
 #import "CameraServiceProtocol.h"
 #import "SyPCameraKeys.h"
+#import <IOKit/pwr_mgt/IOPMLib.h>
+#import "SyPToolbarDelegate.h"
+#import "SyPVersionCheck.h"
+
 #define kActiveCameraIDDefaultsKey @"ActiveCameraID"
 #define kAutoVersionCheckDefaultsKey @"AutoVersionCheck"
 
-@implementation SyPAppDelegate
+@implementation SyPAppDelegate {
+    NSMutableArray *_cameras;
+    NSArray<NSDictionary<NSString *, id> *> *_selectedCameras;
+    NSDictionary<NSString *, id> *_active;
+    BOOL _started;
+    IOPMAssertionID _noSleepAssertion;
+    NSXPCConnection *_cameraService;
+    BOOL _awaitingTermination;
+    SyPVersionCheck *_updater;
+}
+
 - (void)addCamera:(NSDictionary<NSString *, id> *)camera
 {
     if (!_awaitingTermination)
@@ -84,8 +98,6 @@
         }];
     }
 }
-
-@synthesize window = _window, camerasArrayController = _camerasArrayController, toolbarDelegate = _toolbarDelegate;
 
 - (NSArray *)cameras { return _cameras; }
 
