@@ -91,10 +91,11 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.toolbarDelegate.status = @"No Camera";
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kAutoVersionCheckDefaultsKey: @(YES)}];
 
     [self bind:@"doesVersionCheck" toObject:[NSUserDefaults standardUserDefaults] withKeyPath:kAutoVersionCheckDefaultsKey options:nil];
+
+    self.toolbarDelegate.status = @"Starting";
     _cameras = [[NSMutableArray alloc] initWithCapacity:4];
     
     [self bind:@"selectedCameras" toObject:self.camerasArrayController withKeyPath:@"selectedObjects" options:nil];
@@ -105,12 +106,16 @@
     [_cameraService resume];
 
     [_cameraService.remoteObjectProxy startWithReply:^(NSError *error) {
-        if (error)
-        {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            if (error)
+            {
                 [[NSApplication sharedApplication] presentError:error];
-            }];
-        }
+            }
+            else
+            {
+                self.toolbarDelegate.status = @"No Camera";
+            }
+        }];
     }];
 }
 
