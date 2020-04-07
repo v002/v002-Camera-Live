@@ -60,7 +60,7 @@
         }
         else
         {
-            _scheduler = [[NSBackgroundActivityScheduler alloc] initWithIdentifier:@"info.v002.updatecheck"];
+            _scheduler = [[NSBackgroundActivityScheduler alloc] initWithIdentifier:@"info.v002.updatecheck.camera-live"];
             _scheduler.interval = 60 * 60 * 24 * 3; // 3 days
             _scheduler.repeats = YES;
             [_scheduler scheduleWithBlock:^(NSBackgroundActivityCompletionHandler _Nonnull completionHandler) {
