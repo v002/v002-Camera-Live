@@ -64,7 +64,6 @@
             _scheduler.interval = 60 * 60 * 24 * 3; // 3 days
             _scheduler.repeats = YES;
             [_scheduler scheduleWithBlock:^(NSBackgroundActivityCompletionHandler _Nonnull completionHandler) {
-                NSLog(@"Performing automatic version check");
                 [self performCheckForURL:url withHandler:handler];
                 completionHandler(NSBackgroundActivityResultFinished);
             }];
