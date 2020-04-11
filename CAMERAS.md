@@ -1,5 +1,6 @@
 The following cameras are currently supported, as of Camera Live Build 10:
 
+    EOS M100
     EOS M200
     EOS M6 Mark II
     EOS 90D
