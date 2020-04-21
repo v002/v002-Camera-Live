@@ -13,6 +13,13 @@ You can download the app from the [releases page](https://github.com/v002/v002-C
 
 Typical latency of a Canon 7D is 120 ms (between 3 and 4 frames at 30 FPS), which is comparable to the latency of the same camera's HDMI output connected to a capture device.
 
+Installation and Use
+--------------------
+
+v002 Camera Live is a Mac app. Download the app. If you like you can move it to your Applications folder. Some users (notably of Chrome) have reported the download appearing as a folder instead of an app. Try downloading with a different browser, and make sure you haven't followed a link to the source code.
+
+v002 Camera Live provides output through a Syphon server. This is not a video camera driver. If you want to use Camera Live with video calling software that doesn't support Syphon, you will need a virtual video camera driver with Syphon support. CamTwist is a popular choice.
+
 Troubleshooting
 ---------------
 
