@@ -1,5 +1,6 @@
 The following cameras are currently supported, as of Camera Live Build 10:
 
+Canon:
     EOS M200
     EOS M6 Mark II
     EOS 90D
@@ -39,3 +40,7 @@ The following cameras are currently supported, as of Camera Live Build 10:
     EOS DIGITAL REBEL XS / 1000D/ KISS F EOS DIGITAL REBEL Xsi / 450D / Kiss X2 EOS-1Ds Mark III
     EOS 40D
     EOS-1D Mark III
+    
+Fujifilm:
+    X-T2
+    X-T3
