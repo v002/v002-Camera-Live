@@ -197,6 +197,48 @@ static EdsError SyPCanonDSLRHandleStateEvent(EdsStateEvent           inEvent,
             [self release];
             return nil;
         }
+        
+        self->_isoMap = [[NSDictionary alloc] initWithDictionary:@{
+            @"Auto": [NSNumber numberWithInt:0x00] ,
+            @"6": [NSNumber numberWithInt:0x28] ,
+            @"12" : [NSNumber numberWithInt:0x30] ,
+            @"25" : [NSNumber numberWithInt:0x38] ,
+            @"50" : [NSNumber numberWithInt:0x40] ,
+            @"100" : [NSNumber numberWithInt:0x48] ,
+            @"125" : [NSNumber numberWithInt:0x4b] ,
+            @"160" : [NSNumber numberWithInt:0x4d] ,
+            @"200" : [NSNumber numberWithInt:0x50] ,
+            @"250" : [NSNumber numberWithInt:0x53] ,
+            @"320" : [NSNumber numberWithInt:0x55] ,
+            @"400" : [NSNumber numberWithInt:0x58] ,
+            @"500" : [NSNumber numberWithInt:0x5b] ,
+            @"640" : [NSNumber numberWithInt:0x5d] ,
+            @"800" : [NSNumber numberWithInt:0x60] ,
+            @"1000" : [NSNumber numberWithInt:0x63] ,
+            @"1250" : [NSNumber numberWithInt:0x65] ,
+            @"1600" : [NSNumber numberWithInt:0x68] ,
+            @"2000" : [NSNumber numberWithInt:0x6b] ,
+            @"2500" : [NSNumber numberWithInt:0x6d] ,
+            @"3200" : [NSNumber numberWithInt:0x70] ,
+            @"4000" : [NSNumber numberWithInt:0x73] ,
+            @"5000" : [NSNumber numberWithInt:0x75] ,
+            @"6400" : [NSNumber numberWithInt:0x78] ,
+            @"8000" : [NSNumber numberWithInt:0x7b] ,
+            @"10000" : [NSNumber numberWithInt:0x7d] ,
+            @"12800" : [NSNumber numberWithInt:0x80] ,
+            @"16000" : [NSNumber numberWithInt:0x83] ,
+            @"20000" : [NSNumber numberWithInt:0x85] ,
+            @"25600" : [NSNumber numberWithInt:0x88] ,
+            @"32000" : [NSNumber numberWithInt:0x8b] ,
+            @"40000" : [NSNumber numberWithInt:0x8d] ,
+            @"51200" : [NSNumber numberWithInt:0x90] ,
+            @"64000" : [NSNumber numberWithInt:0x93] ,
+            @"80000" : [NSNumber numberWithInt:0x95] ,
+            @"102400" : [NSNumber numberWithInt:0x98] ,
+            @"204800" : [NSNumber numberWithInt:0xa0] ,
+            @"409600" : [NSNumber numberWithInt:0xa8] ,
+            @"819200" : [NSNumber numberWithInt:0xb0]
+        } copyItems:TRUE];
     }
     return self;
 }
@@ -484,6 +526,7 @@ static SyPCanonDSLR *mSession;
             error = [NSError errorWithDomain:@"SyPErrorDomain" code:1 userInfo:nil];
         }
     }
+    
     return error;
 }
 
@@ -551,6 +594,35 @@ static SyPCanonDSLR *mSession;
         }
     }
     return image;
+}
+
+- (NSArray<NSString*>*)getIsoNumbers
+{
+    NSArray *sortedArrayOfString = [self->_isoMap.allKeys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [(NSString *)obj1 compare:(NSString *)obj2 options:NSNumericSearch];
+    }];
+    return sortedArrayOfString;
+}
+
+- (void)setIso:(NSString*)isoNumber
+{
+    EdsUInt32 isoId = ((NSNumber*)_isoMap[isoNumber]).intValue;
+    EdsSetPropertyData(_camera, kEdsPropID_ISOSpeed, 0 , sizeof(isoId), &isoId);
+}
+
+- (NSString*)getIso
+{
+    EdsError error = EDS_ERR_OK;
+    EdsUInt32 isoId;
+    error = EdsGetPropertyData(_camera, kEdsPropID_ISOSpeed, 0, sizeof(isoId), &isoId);
+    if(error != EDS_ERR_OK)
+        return @"";
+    NSArray* isoStrings = [_isoMap allKeysForObject:[NSNumber numberWithInt:isoId]];
+    if(isoStrings.count == 1){
+        return (NSString*)isoStrings[0];
+    } else {
+        return @"";
+    }
 }
 
 @end

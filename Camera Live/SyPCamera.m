@@ -107,4 +107,14 @@ NSString * const SyPCameraRemovedNotification = @"SyPCameraRemovedNotification";
 {
     return _isInLiveView;
 }
+
+- (NSString*)getIso {
+    return @"";
+}
+
+- (void)setIso:(NSString*)isoNumber
+{
+    NSLog(@"setIso:%@", isoNumber);
+}
+
 @end
