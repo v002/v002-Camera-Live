@@ -48,6 +48,9 @@ typedef void(^SyPCameraImageHandler)(SyPImageBuffer *image, NSError *error);
 - (void)startLiveViewOnQueue:(dispatch_queue_t)queue withHandler:(SyPCameraImageHandler)handler;
 - (void)stopLiveView;
 @property (readonly) BOOL isInLiveView;
+- (NSArray<NSString*>*)getIsoNumbers;
+- (NSString*)getIso;
+- (void)setIso:(NSString*)isoNumber;
 @end
 
 @interface SyPCamera (Subclassing)

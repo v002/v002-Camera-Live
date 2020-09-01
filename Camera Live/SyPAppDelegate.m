@@ -205,6 +205,7 @@
                     {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             self.toolbarDelegate.status = @"Active";
+                            [self updateIsoMenuItemStates];
                         }];
                         _started = YES;
                     }
@@ -269,11 +270,18 @@
             status = @"Starting";
         }
         self.toolbarDelegate.status = status;
+        
+        [self.isoMenu.submenu removeAllItems];
+        for(id isoId in activeCamera.getIsoNumbers) {
+            [self.isoMenu.submenu addItemWithTitle:(NSString*)isoId action:@selector (setIso:) keyEquivalent:@""];
+        }
+        [self updateIsoMenuItemStates];
     }
     else
     {
         if ([self.cameras count]) self.toolbarDelegate.status = @"Ready";
         else self.toolbarDelegate.status = @"No Camera";
+        [self.isoMenu.submenu removeAllItems];
         if (_noSleepAssertion)
         {
             IOPMAssertionRelease(_noSleepAssertion);
@@ -293,6 +301,27 @@
 - (IBAction)goToWebIssues:(id)sender
 {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/v002/v002-Camera-Live/issues"]];
+}
+
+- (NSMenuItem*) isoMenu {
+    return [[self.window.menu itemWithTitle:@"Camera"].submenu itemWithTitle:@"ISO Speed"];
+}
+
+- (void)updateIsoMenuItemStates
+{
+    NSString* currentIso = [self.activeCamera getIso];
+    for(NSMenuItem* menuItem in self.isoMenu.submenu.itemArray) {
+        if([menuItem.title isEqual:currentIso])
+            menuItem.state = NSControlStateValueOn;
+        else
+            menuItem.state = NSControlStateValueOff;
+    }
+}
+
+- (IBAction)setIso:(NSMenuItem *)sender
+{
+    [self.activeCamera setIso:(sender.title)];
+    [self updateIsoMenuItemStates];
 }
 
 // swizzle -[ICCameraDevice registerForImageCaptureEventNotifications:] to prevent ImageCapture stuff from crashing on 10.13.

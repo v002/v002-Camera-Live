@@ -61,5 +61,6 @@
 @property (readwrite, retain) NSArray *selectedCameras;
 @property (assign) IBOutlet NSArrayController *camerasArrayController;
 @property (assign) IBOutlet SyPToolbarDelegate *toolbarDelegate;
+- (IBAction)setIso:(NSMenuItem *)sender;
 - (IBAction)goToWebIssues:(id)sender;
 @end
