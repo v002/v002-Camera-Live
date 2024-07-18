@@ -1,6 +1,7 @@
 v002 Camera Live
 ================
 
+**This project has been archived as it is not actively maintained. We cannot provide support. For developers who wish to fork it, you will probably want to start from the `libgphoto2` branch.**
 
 Introduction
 ------------
