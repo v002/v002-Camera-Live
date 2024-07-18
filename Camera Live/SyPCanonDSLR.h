@@ -51,5 +51,6 @@
     SyPImageBuffer *_pendingImage;
     NSError *_pendingError;
     NSTimeInterval _lastSession;
+    NSDictionary<NSString*, NSNumber*> *_isoMap;
 }
 @end

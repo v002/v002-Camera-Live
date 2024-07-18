@@ -331,6 +331,16 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Camera" id="Mwe-5l-6ng">
+                    <menu key="submenu" title="Camera" id="IeP-RX-kwS">
+                        <items>
+                            <menuItem title="ISO Speed" id="Gb7-If-lSI">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="ISO Speed" id="TsS-mf-L1d"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Format" id="375">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Format" id="376">
